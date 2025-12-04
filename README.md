@@ -18,6 +18,16 @@ A comprehensive network visualization and analysis tool for AWS Landing Zone Acc
 
 ## 🚀 Quick Start
 
+### 0. Setup Python Environment (Optional but Recommended)
+
+Create a virtual environment and install dependencies:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install pyyaml
+```
+
 ### 1. Generate Network Data
 
 First, parse your LZA configuration files to generate the network data:
