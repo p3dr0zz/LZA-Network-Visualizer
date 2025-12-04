@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LZA Network Visualizer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      padding: 0.75rem 1rem;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    header h1 {
+      font-size: 1.1rem;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    header .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    main {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+    }
+
+    #sidebar {
+      width: 280px;
+      border-right: 1px solid #e5e7eb;
+      padding: 0.75rem;
+      box-sizing: border-box;
+      font-size: 0.9rem;
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #sidebar h2 {
+      margin: 0 0 0.25rem 0;
+      font-size: 0.95rem;
+    }
+
+    #sidebar pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    #cy {
+      flex: 1;
+      height: 100%;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 0.2rem;
+    }
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(15,23,42,0.3);
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      font-size: 0.8rem;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      color: #e5e7eb;
+      font-size: 0.8rem;
+    }
+
+    button, select {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+      border-radius: 0.3rem;
+      border: 1px solid #6366f1;
+      background: #4f46e5;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #4338ca;
+    }
+    select {
+      background: #f9fafb;
+      color: #111827;
+      border: 1px solid #d1d5db;
+    }
+
+    #status {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .tabs {
+      display: flex;
+      background: #f3f4f6;
+      border-bottom: 1px solid #d1d5db;
+      padding: 0;
+    }
+
+    .tab-button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: transparent;
+      color: #6b7280;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tab-button:hover {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .tab-button.active {
+      background: white;
+      color: #1f2937;
+      border-bottom-color: #4f46e5;
+    }
+
+    .tab-content {
+      display: none;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    .content-panel {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .overview-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .overview-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #1f2937;
+      font-size: 1rem;
+    }
+
+    .verification-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.25rem;
+    }
+
+    .verification-item.pass {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .verification-item.fail {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .verification-item.warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .flow-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    .flow-select {
+      min-width: 200px;
+    }
+
+    .flow-path {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-arrow {
+      color: #6b7280;
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://unpkg.com/cytoscape@3.28.1/dist/cytoscape.min.js"></script>
+  <script src="https://unpkg.com/cytoscape-svg@2.1.2/cytoscape-svg.min.js"></script>
+
+</head>
+<body>
+  <header>
+    <h1>LZA Network Visualizer</h1>
+    <div class="controls">
+      <input id="fileInput" type="file" accept=".json,application/json" />
+      <button id="fitButton" type="button">Fit to Screen</button>
+      <button id="pngButton" type="button">Export PNG</button>
+      <button id="svgButton" type="button">Export SVG</button>
+      <span id="status">No file loaded</span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-button active" data-tab="network">Network Diagram</button>
+    <button class="tab-button" data-tab="overview">Overview</button>
+    <button class="tab-button" data-tab="verification">Verification</button>
+    <button class="tab-button" data-tab="visual-flow">Visual Flow</button>
+  </nav>
+
+  <main>
+    <!-- Network Diagram Tab -->
+    <div id="network-tab" class="tab-content active">
+      <aside id="sidebar">
+        <div>
+          <h2>Legend</h2>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#1d4ed8;"></span>
+            <span>Transit Gateway</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#0ea5e9;"></span>
+            <span>Route Table (TGW)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#10b981;"></span>
+            <span>VPC</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#f97316;"></span>
+            <span>Subnet</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-swatch" style="background:#dc2626;"></span>
+            <span>Palo Alto CNFGW</span>
+          </div>
+        </div>
+
+        <div>
+          <h2>Layout</h2>
+          <div class="checkbox-group">
+            <label><select id="layoutSelect">
+              <option value="hierarchical" selected>Hierarchical</option>
+              <option value="breadthfirst">Breadth First</option>
+              <option value="cose">Force Directed</option>
+              <option value="grid">Grid</option>
+            </select></label>
+          </div>
+        </div>
+
+        <div>
+          <h2>Layers</h2>
+          <div class="checkbox-group">
+            <label><input type="checkbox" id="toggleTgw" checked /> Transit Gateways</label>
+            <label><input type="checkbox" id="toggleVpc" checked /> VPCs</label>
+            <label><input type="checkbox" id="toggleSubnets" checked /> Subnets</label>
+            <label><input type="checkbox" id="toggleRt" checked /> TGW Route Tables</label>
+          </div>
+        </div>
+
+        <div>
+          <h2>Selection</h2>
+          <pre id="selectionInfo">Click a node to inspect details.</pre>
+        </div>
+      </aside>
+
+      <div id="cy"></div>
+    </div>
+
+    <!-- Overview Tab -->
+    <div id="overview-tab" class="tab-content">
+      <div class="content-panel">
+        <h2>Network Overview</h2>
+        <div id="overview-content">
+          <p>Load a network configuration file to see the overview.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verification Tab -->
+    <div id="verification-tab" class="tab-content">
+      <div class="content-panel">
+        <h2>Network Verification</h2>
+        <div id="verification-content">
+          <p>Load a network configuration file to run verification checks.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual Flow Tab -->
+    <div id="visual-flow-tab" class="tab-content">
+      <div class="content-panel">
+        <h2>Visual Flow Analysis</h2>
+        <div class="flow-controls">
+          <label>Source:
+            <select id="flowSource" class="flow-select">
+              <option value="">Select source...</option>
+            </select>
+          </label>
+          <label>Target:
+            <select id="flowTarget" class="flow-select">
+              <option value="">Select target...</option>
+            </select>
+          </label>
+          <button id="analyzeFlow" type="button">Analyze Flow</button>
+        </div>
+        <div id="flow-content">
+          <p>Load a network configuration file and select source/target to analyze data flow.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const fitButton = document.getElementById('fitButton');
+    const pngButton = document.getElementById('pngButton');
+    const svgButton = document.getElementById('svgButton');
+    const statusSpan = document.getElementById('status');
+    const selectionInfo = document.getElementById('selectionInfo');
+
+    const toggleTgw = document.getElementById('toggleTgw');
+    const toggleVpc = document.getElementById('toggleVpc');
+    const toggleSubnets = document.getElementById('toggleSubnets');
+    const toggleRt = document.getElementById('toggleRt');
+    const layoutSelect = document.getElementById('layoutSelect');
+
+    // Tab elements
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const overviewContent = document.getElementById('overview-content');
+    const verificationContent = document.getElementById('verification-content');
+    const flowContent = document.getElementById('flow-content');
+    const flowSource = document.getElementById('flowSource');
+    const flowTarget = document.getElementById('flowTarget');
+    const analyzeFlow = document.getElementById('analyzeFlow');
+
+    let cy = null;
+    let currentData = null;
+
+
+
+    function inferEnvForVpc(vpc) {
+      const name = (vpc.name || vpc.id || '').toLowerCase();
+      const acct = (vpc.account || '').toLowerCase();
+
+      if (name.includes('perimeter')) return 'perimeter';
+      if (name.includes('prod')) return 'prod';
+      if (name.includes('test')) return 'test';
+      if (name.includes('dev')) return 'dev';
+      if (name.includes('central') || name.includes('network')) return 'central';
+      if (name.includes('endpoint')) return 'endpoint';
+
+      if (acct.includes('prod')) return 'prod';
+      if (acct.includes('test')) return 'test';
+      if (acct.includes('dev')) return 'dev';
+
+      return 'other';
+    }
+
+    function createCytoscape(elements) {
+      if (cy) cy.destroy();
+
+      cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements,
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'label': 'data(label)',
+              'text-valign': 'bottom',
+              'text-halign': 'center',
+              'text-margin-y': '6px',
+              'font-size': '10px',
+              'text-wrap': 'wrap',
+              'text-max-width': '120px',
+              'color': '#111827',
+              'background-color': '#e5e7eb',
+              'border-color': '#9ca3af',
+              'border-width': 1,
+              'shape': 'round-rectangle',
+              'padding': '2px',
+              'background-fit': 'contain',
+              'background-clip': 'node',
+              'background-opacity': 1
+            }
+          },
+          {
+            selector: 'node[type="tgw"]',
+            style: {
+              'background-color': '#1d4ed8',
+              'border-color': '#1e3a8a',
+              'width': 90,
+              'height': 70,
+              'font-weight': 'bold',
+              'color': '#e5e7eb',
+              'background-image': 'url("./icons/tgw.png")',
+              'background-width': '80%',
+              'background-height': '80%',
+              'background-position': '50% 40%'
+            }
+          },
+          {
+            selector: 'node[type="tgw_rt"]',
+            style: {
+              'background-color': '#0ea5e9',
+              'border-color': '#0369a1',
+              'width': 110,
+              'height': 70,
+              'font-weight': 'bold',
+              'color': '#0f172a',
+              'background-image': 'url("./icons/route-table.png")',
+              'background-width': '80%',
+              'background-height': '80%',
+              'background-position': '50% 40%'
+            }
+          },
+          {
+            selector: 'node[type="vpc"]',
+            style: {
+              'background-color': '#10b981',
+              'border-color': '#047857',
+              'width': 120,
+              'height': 75,
+              'font-weight': 'bold',
+              'color': '#064e3b',
+              'background-image': 'url("./icons/vpc.png")',
+              'background-width': '80%',
+              'background-height': '80%',
+              'background-position': '50% 40%'
+            }
+          },
+          {
+            selector: 'node[type="vpc"][env="perimeter"]',
+            style: { 'background-color': '#0ea5e9', 'border-color': '#0369a1' }
+          },
+          {
+            selector: 'node[type="vpc"][env="central"]',
+            style: { 'background-color': '#22c55e', 'border-color': '#15803d' }
+          },
+          {
+            selector: 'node[type="vpc"][env="dev"]',
+            style: { 'background-color': '#eab308', 'border-color': '#a16207' }
+          },
+          {
+            selector: 'node[type="vpc"][env="test"]',
+            style: { 'background-color': '#f97316', 'border-color': '#c2410c' }
+          },
+          {
+            selector: 'node[type="vpc"][env="prod"]',
+            style: {
+              'background-color': '#ef4444',
+              'border-color': '#b91c1c',
+              'color': '#064e3b'
+            }
+          },
+          {
+            selector: 'node[type="vpc"][env="endpoint"]',
+            style: {
+              'background-color': '#6366f1',
+              'border-color': '#4f46e5',
+              'color': '#064e3b'
+            }
+          },
+          {
+            selector: 'node[type="subnet"]',
+            style: {
+              'background-color': '#f97316',
+              'border-color': '#c2410c',
+              'width': 200,
+              'height': 60,
+              'text-halign': 'right',
+              'text-valign': 'center',
+              'text-margin-x': '-10px',
+              'background-image': 'url("./icons/subnet.png")',
+              'background-width': '80%',
+              'background-height': '80%',
+              'background-position': '15% 50%'
+            }
+          },
+          {
+            selector: 'node[type="cnfgw"]',
+            style: {
+              'background-color': '#dc2626',
+              'border-color': '#991b1b',
+              'width': 140,
+              'height': 80,
+              'font-weight': 'bold',
+              'color': '#fef2f2',
+              'shape': 'round-rectangle',
+              'text-valign': 'center',
+              'text-halign': 'center'
+            }
+          },
+          {
+            selector: 'edge',
+            style: {
+              'width': 2,
+              'curve-style': 'bezier',
+              'line-color': '#374151',
+              'target-arrow-shape': 'triangle',
+              'target-arrow-color': '#374151',
+              'arrow-scale': 1,
+              'label': 'data(label)',
+              'font-size': '8px',
+              'text-rotation': 'autorotate',
+              'color': '#1f2937',
+              'opacity': 0.8
+            }
+          },
+          {
+            selector: 'edge[edgeType="vpc-subnet"]',
+            style: {
+              'curve-style': 'straight',
+              'line-color': '#d1d5db',
+              'target-arrow-shape': 'none',
+              'opacity': 0.7
+            }
+          },
+          {
+            selector: 'edge[edgeType="tgw-attachment"]',
+            style: {
+              'line-color': '#1d4ed8',
+              'target-arrow-color': '#1d4ed8',
+              'font-weight': 'bold',
+              'width': 3,
+              'opacity': 0.9
+            }
+          },
+          {
+            selector: 'edge[edgeType="vpc-rt-assoc"]',
+            style: {
+              'line-style': 'solid',
+              'line-color': '#22c55e',
+              'target-arrow-color': '#22c55e'
+            }
+          },
+          {
+            selector: 'edge[edgeType="vpc-rt-prop"]',
+            style: {
+              'line-style': 'dashed',
+              'line-color': '#f97316',
+              'target-arrow-color': '#f97316'
+            }
+          },
+          {
+            selector: 'edge[edgeType="cnfgw-tgw"]',
+            style: {
+              'line-color': '#dc2626',
+              'target-arrow-color': '#dc2626',
+              'font-weight': 'bold',
+              'width': 3,
+              'line-style': 'solid'
+            }
+          },
+          {
+            selector: ':selected',
+            style: {
+              'border-width': 3,
+              'border-color': '#f59e0b',
+              'background-color': '#fee2e2'
+            }
+          }
+        ],
+        layout: { 
+          name: 'breadthfirst',
+          directed: true,
+          padding: 50,
+          spacingFactor: 1.5
+        },
+        wheelSensitivity: 0.2
+      });
+
+      cy.maxZoom(3);
+      cy.minZoom(0.1);
+
+      cy.on('select', 'node', e => {
+        const data = e.target.data();
+        const raw = data.raw || {};
+        let info = `Type: ${data.type}\nID: ${data.id}\n`;
+        
+        if (data.type === 'vpc') {
+          info += `Name: ${raw.name || 'N/A'}\n`;
+          // Get CIDR from the label (which now has the correct CIDR)
+          const labelParts = data.label.split('\n');
+          const cidr = labelParts[1] || 'N/A';
+          info += `CIDR: ${cidr}\n`;
+          info += `Account: ${raw.account || 'N/A'}\n`;
+          info += `Environment: ${data.env || 'N/A'}\n`;
+          if (raw.subnets) info += `Subnets: ${raw.subnets.length}\n`;
+        } else if (data.type === 'subnet') {
+          info += `Name: ${raw.name || 'N/A'}\n`;
+          info += `CIDR: ${raw.cidr || 'N/A'}\n`;
+          info += `AZ: ${raw.az || 'N/A'}\n`;
+          info += `Type: ${raw.type || 'N/A'}\n`;
+        } else if (data.type === 'tgw') {
+          info += `Name: ${raw.name || 'N/A'}\n`;
+          info += `ASN: ${raw.asn || 'N/A'}\n`;
+          info += `Account: ${raw.account || 'N/A'}\n`;
+        } else if (data.type === 'tgw_rt') {
+          info += `Route Table: ${raw.routeTable?.name || 'N/A'}\n`;
+          info += `TGW: ${raw.tgw || 'N/A'}\n`;
+        }
+        
+        selectionInfo.textContent = info;
+      });
+      cy.on('unselect', 'node', () => {
+        selectionInfo.textContent = 'Click a node to inspect details.';
+      });
+
+      applyLayerFilters();
+      setTimeout(() => {
+        applyHierarchicalLayout();
+        cy.fit();
+      }, 100);
+    }
+
+    function buildElementsFromGraph(graph, resolvedCfg) {
+      const elements = [];
+      const vpcs = graph.vpcs || [];
+      const tgwList = graph.transit_gateways || [];
+      const cnfgwEndpoints = graph.cnfgw_endpoints || [];
+      
+      // Create a lookup for VPC CIDRs from resolved config
+      const vpcCidrLookup = {};
+      if (resolvedCfg && resolvedCfg.vpcs) {
+        resolvedCfg.vpcs.forEach(vpc => {
+          if (vpc.cidrs && vpc.cidrs.length > 0) {
+            vpcCidrLookup[vpc.name] = vpc.cidrs[0]; // Use first CIDR
+          }
+        });
+      }
+
+      // account columns, spaced further apart
+      const accounts = [...new Set(vpcs.map(v => v.account || 'Unknown'))];
+      const preferredOrder = ['Perimeter', 'Network', 'Central', 'Dev', 'Test', 'Prod', 'Infrastructure', 'Sandbox'];
+      const sortedAccounts = accounts.sort((a, b) => {
+        const ia = preferredOrder.indexOf(a);
+        const ib = preferredOrder.indexOf(b);
+        if (ia === -1 && ib === -1) return a.localeCompare(b);
+        if (ia === -1) return 1;
+        if (ib === -1) return -1;
+        return ia - ib;
+      });
+
+      const accountX = {};
+      sortedAccounts.forEach((acct, i) => {
+        accountX[acct] = i * 500;   // <-- more horizontal spacing
+      });
+
+      const accountVpcIndex = {};
+      const vpcPositions = {};
+
+      // VPCs + subnets
+      vpcs.forEach(vpc => {
+        if (!vpc || !vpc.id) return;
+
+        const acct = vpc.account || 'Unknown';
+        const env = inferEnvForVpc(vpc);
+
+        if (accountVpcIndex[acct] == null) accountVpcIndex[acct] = 0;
+        const idx = accountVpcIndex[acct]++;
+        const x = accountX[acct] ?? 0;
+        const y = idx * 280;       // <-- more vertical spacing between VPCs
+
+        vpcPositions[vpc.id] = { x, y };
+
+        const vpcCidr = vpcCidrLookup[vpc.name] || vpc.cidr || vpc.cidr_block || vpc.CidrBlock || vpc.vpc_cidr || '';
+        const labelLines = [
+          vpc.name || vpc.id,
+          vpcCidr,
+          `${vpc.account || 'Unknown'}`
+        ].filter(Boolean);
+
+        elements.push({
+          data: { id: vpc.id, label: labelLines.join('\n'), type: 'vpc', env, raw: vpc },
+          position: { x, y }
+        });
+
+        // subnets further below with wider spacing
+        const azOffset = { 'a': -110, 'b': -10, 'c': 90, 'd': 110 };
+        let subnetIndex = 0;
+        (vpc.subnets || []).forEach(subnet => {
+          if (!subnet || !subnet.id) return;
+
+          const azRaw = (subnet.az || '').toString().toLowerCase();
+          const azLetter = azRaw.replace(/[^a-z]/g, '').charAt(0) || 'b';
+          const xOffset = azOffset[azLetter] ?? -10;
+          const localRow = subnetIndex++;
+          const yOffset = 110 + localRow * 70;  // more vertical distance between subnets
+
+          const sx = x + xOffset;
+          const sy = y + yOffset;
+
+          const sLabelLines = [
+            subnet.name || subnet.id.split('-').pop(),
+            subnet.cidr || '',
+            subnet.az ? `AZ: ${subnet.az}` : ''
+          ].filter(Boolean);
+
+          elements.push({
+            data: { id: subnet.id, label: sLabelLines.join('\n'), type: 'subnet', raw: subnet },
+            position: { x: sx, y: sy }
+          });
+
+          elements.push({
+            data: {
+              id: `edge-${vpc.id}-${subnet.id}`,
+              source: vpc.id,
+              target: subnet.id,
+              edgeType: 'vpc-subnet',
+              label: '',
+              raw: { vpc: vpc.id, subnet: subnet.id }
+            }
+          });
+        });
+      });
+
+      // TGWs
+      let minX = Infinity, maxX = -Infinity;
+      Object.values(vpcPositions).forEach(pos => {
+        if (!pos) return;
+        if (pos.x < minX) minX = pos.x;
+        if (pos.x > maxX) maxX = pos.x;
+      });
+      if (!isFinite(minX) || !isFinite(maxX)) { minX = -200; maxX = 200; }
+      const centerX = (minX + maxX) / 2;
+      const tgwY = -300;
+
+      const tgwPos = {};
+      tgwList.forEach((tgw, idx) => {
+        if (!tgw || !tgw.id) return;
+        const tx = centerX + idx * 250;   // route multiple TGWs further apart if ever needed
+        const ty = tgwY;
+        tgwPos[tgw.id] = { x: tx, y: ty };
+
+        const label = `${tgw.name || tgw.id}\n${tgw.asn ? '(ASN ' + tgw.asn + ')' : ''}`;
+        elements.push({
+          data: { id: tgw.id, label, type: 'tgw', raw: tgw },
+          position: { x: tx, y: ty }
+        });
+      });
+
+      // TGW route tables
+      const tgwRouteTableNodes = {};
+      if (resolvedCfg && Array.isArray(resolvedCfg.transitGateways)) {
+        resolvedCfg.transitGateways.forEach(rtTgw => {
+          const baseName = rtTgw.name;
+          const basePos = tgwPos[baseName] || { x: centerX, y: tgwY };
+
+          (rtTgw.routeTables || []).forEach((rt, idx) => {
+            const rtId = `${baseName}::${rt.name}`;
+            const rx = basePos.x + (idx - 1) * 200;
+            const ry = basePos.y + 180;   // push route tables further down from TGW
+
+            tgwRouteTableNodes[rtId] = { x: rx, y: ry };
+
+            elements.push({
+              data: {
+                id: rtId,
+                label: `RT: ${rt.name}`,
+                type: 'tgw_rt',
+                raw: { tgw: baseName, routeTable: rt }
+              },
+              position: { x: rx, y: ry }
+            });
+
+            elements.push({
+              data: {
+                id: `edge-tgw-${baseName}-${rt.name}`,
+                source: baseName,
+                target: rtId,
+                label: '',
+                edgeType: 'tgw-rt',
+                raw: { tgw: baseName, routeTable: rt.name }
+              }
+            });
+          });
+        });
+      }
+
+      const ensureArray = val =>
+        val == null ? [] : Array.isArray(val) ? val : [val];
+
+      // Attachments + RT relationships
+      (graph.tgw_attachments || []).forEach(att => {
+        if (!att) return;
+
+        let tgwId = att.tgw_id;
+        if (tgwId && typeof tgwId === 'object') tgwId = tgwId.name || tgwId.id || null;
+        let vpcId = att.vpc_id;
+        if (vpcId && typeof vpcId === 'object') vpcId = vpcId.id || vpcId.name || null;
+        if (!tgwId || !vpcId) {
+          console.warn('Skipping TGW attachment with missing ids:', att);
+          return;
+        }
+
+        elements.push({
+          data: {
+            id: `edge-tgw-${vpcId}-${tgwId}-${att.id || ''}`,
+            source: vpcId,
+            target: tgwId,
+            label: att.name || 'TGW attachment',
+            edgeType: 'tgw-attachment',
+            raw: att
+          }
+        });
+
+        const assocNames = ensureArray(att.route_tables && att.route_tables.tgw_association);
+        const propNames  = ensureArray(att.route_tables && att.route_tables.tgw_propagations);
+
+        assocNames.forEach(rtName => {
+          if (!rtName) return;
+          const rtId = `${tgwId}::${rtName}`;
+          if (!tgwRouteTableNodes[rtId]) return;
+          elements.push({
+            data: {
+              id: `edge-assoc-${vpcId}-${rtId}`,
+              source: vpcId,
+              target: rtId,
+              label: 'assoc',
+              edgeType: 'vpc-rt-assoc',
+              raw: { vpc: vpcId, tgw: tgwId, routeTable: rtName }
+            }
+          });
+        });
+
+        propNames.forEach(rtName => {
+          if (!rtName) return;
+          const rtId = `${tgwId}::${rtName}`;
+          if (!tgwRouteTableNodes[rtId]) return;
+          elements.push({
+            data: {
+              id: `edge-prop-${vpcId}-${rtId}`,
+              source: vpcId,
+              target: rtId,
+              label: 'prop',
+              edgeType: 'vpc-rt-prop',
+              raw: { vpc: vpcId, tgw: tgwId, routeTable: rtName }
+            }
+          });
+        });
+      });
+
+      // CNFGW Endpoints
+      cnfgwEndpoints.forEach((cnfgw, idx) => {
+        if (!cnfgw || !cnfgw.id) return;
+        
+        // Position CNFGW endpoints near the perimeter area
+        const cx = centerX - 300 + idx * 200;
+        const cy = tgwY - 150;
+        
+        const label = `CNFGW\n${cnfgw.name.split('-').pop()}\n${cnfgw.destination || ''}`;
+        elements.push({
+          data: { id: cnfgw.id, label, type: 'cnfgw', raw: cnfgw },
+          position: { x: cx, y: cy }
+        });
+        
+        // Connect CNFGW to TGW if available
+        if (cnfgw.tgw && tgwPos[cnfgw.tgw]) {
+          elements.push({
+            data: {
+              id: `edge-cnfgw-${cnfgw.id}-${cnfgw.tgw}`,
+              source: cnfgw.id,
+              target: cnfgw.tgw,
+              label: 'Security Inspection',
+              edgeType: 'cnfgw-tgw',
+              raw: cnfgw
+            }
+          });
+        }
+      });
+      
+      return elements;
+    }
+
+    function applyLayerFilters() {
+      if (!cy) return;
+
+      cy.nodes().show();
+      cy.edges().show();
+
+      const showTgw = toggleTgw.checked;
+      const showVpc = toggleVpc.checked;
+      const showSubnets = toggleSubnets.checked;
+      const showRt = toggleRt.checked;
+
+      if (!showTgw) {
+        cy.nodes('[type="tgw"]').hide();
+        cy.edges('[edgeType = "tgw-attachment"]').hide();
+        cy.edges('[edgeType = "tgw-rt"]').hide();
+      }
+
+      if (!showVpc) {
+        cy.nodes('[type="vpc"]').hide();
+        cy.edges('[edgeType = "vpc-subnet"]').hide();
+        cy.edges('[edgeType = "tgw-attachment"]').hide();
+        cy.edges('[edgeType = "vpc-rt-assoc"]').hide();
+        cy.edges('[edgeType = "vpc-rt-prop"]').hide();
+      }
+
+      if (!showSubnets) {
+        cy.nodes('[type="subnet"]').hide();
+        cy.edges('[edgeType = "vpc-subnet"]').hide();
+      }
+
+      if (!showRt) {
+        cy.nodes('[type="tgw_rt"]').hide();
+        cy.edges('[edgeType = "vpc-rt-assoc"]').hide();
+        cy.edges('[edgeType = "vpc-rt-prop"]').hide();
+        cy.edges('[edgeType = "tgw-rt"]').hide();
+      }
+    }
+
+    function handleFileChosen(file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const cleaned = String(e.target.result).replace(/^\uFEFF/, '').trim();
+          const json = JSON.parse(cleaned);
+          const graph = json.graph || json;
+          const resolvedCfg = json.resolved_network_config || json.resolved || null;
+
+          if (!graph || typeof graph !== 'object') {
+            throw new Error('JSON does not contain a "graph" object');
+          }
+
+          const elements = buildElementsFromGraph(graph, resolvedCfg);
+          currentData = { graph, resolvedCfg, elements };
+          createCytoscape(elements);
+          generateOverview(graph, resolvedCfg);
+          runVerification(graph, resolvedCfg);
+          populateFlowSelectors(graph, resolvedCfg);
+          statusSpan.textContent = `Loaded: ${file.name}`;
+        } catch (err) {
+          console.error('Error parsing or visualizing JSON:', err);
+          statusSpan.textContent = `Error: ${err.message || 'invalid JSON file'}`;
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    fileInput.addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) handleFileChosen(file);
+    });
+
+    fitButton.addEventListener('click', () => { if (cy) cy.fit(); });
+
+    pngButton.addEventListener('click', () => {
+      if (!cy) return;
+      const pngData = cy.png({ full: true, scale: 2 });
+      const a = document.createElement('a');
+      a.href = pngData;
+      a.download = 'lza-network.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+
+    svgButton.addEventListener('click', () => {
+      if (!cy || typeof cy.svg !== 'function') {
+        alert('SVG export not available in this browser build.');
+        return;
+      }
+      const svgData = cy.svg({ full: true, scale: 1 });
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'lza-network.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    function applyHierarchicalLayout() {
+      if (!cy) return;
+      
+      const tgwNodes = cy.nodes('[type="tgw"]');
+      const rtNodes = cy.nodes('[type="tgw_rt"]');
+      const vpcNodes = cy.nodes('[type="vpc"]');
+      const subnetNodes = cy.nodes('[type="subnet"]');
+      
+      // Calculate center position for TGW
+      const centerX = 600;
+      
+      // Position TGW at top center
+      tgwNodes.forEach((node, i) => {
+        node.position({ x: centerX + i * 300, y: 100 });
+      });
+      
+      // Position route tables below TGW in horizontal line
+      rtNodes.forEach((node, i) => {
+        const totalRts = rtNodes.length;
+        const startX = centerX - ((totalRts - 1) * 200) / 2;
+        node.position({ x: startX + i * 200, y: 280 });
+      });
+      
+      // Position ALL VPCs in single horizontal row
+      vpcNodes.forEach((node, i) => {
+        node.position({ x: 200 + i * 300, y: 500 });
+      });
+      
+      // Position subnets in vertical tree structure below each VPC
+      const vpcSubnets = {};
+      subnetNodes.forEach((subnet) => {
+        const vpcEdges = subnet.connectedEdges('[edgeType="vpc-subnet"]');
+        if (vpcEdges.length > 0) {
+          const vpc = vpcEdges.source();
+          const vpcId = vpc.id();
+          if (!vpcSubnets[vpcId]) vpcSubnets[vpcId] = [];
+          vpcSubnets[vpcId].push(subnet);
+        }
+      });
+      
+      Object.keys(vpcSubnets).forEach(vpcId => {
+        const vpc = cy.getElementById(vpcId);
+        const vpcPos = vpc.position();
+        const subnets = vpcSubnets[vpcId];
+        
+        // Sort subnets by AZ for consistent tree structure
+        subnets.sort((a, b) => {
+          const azA = a.data('raw')?.az || '';
+          const azB = b.data('raw')?.az || '';
+          return azA.localeCompare(azB);
+        });
+        
+        // Create vertical tree structure (like directory listing)
+        subnets.forEach((subnet, index) => {
+          subnet.position({
+            x: vpcPos.x,
+            y: vpcPos.y + 120 + index * 100  // Increased spacing from 80 to 100
+          });
+        });
+      });
+      
+      cy.fit();
+    }
+
+    function changeLayout() {
+      if (!cy) {
+        console.warn('Cytoscape not initialized');
+        return;
+      }
+      const layoutName = layoutSelect.value;
+      console.log('Changing to layout:', layoutName);
+      let layoutOptions = { name: layoutName, padding: 50 };
+      
+      if (layoutName === 'hierarchical') {
+        // Custom hierarchical positioning
+        applyHierarchicalLayout();
+        return;
+      } else if (layoutName === 'breadthfirst') {
+        layoutOptions = {
+          name: 'breadthfirst',
+          directed: true,
+          padding: 50,
+          spacingFactor: 1.5
+        };
+      } else if (layoutName === 'cose') {
+        layoutOptions = {
+          name: 'cose',
+          nodeRepulsion: 8000,
+          idealEdgeLength: 100,
+          padding: 50
+        };
+      } else if (layoutName === 'grid') {
+        layoutOptions = {
+          name: 'grid',
+          padding: 50,
+          spacingFactor: 2
+        };
+      }
+      
+      console.log('Applying layout:', layoutOptions);
+      const layout = cy.layout(layoutOptions);
+      layout.run();
+    }
+
+    layoutSelect.addEventListener('change', changeLayout);
+    toggleTgw.addEventListener('change', applyLayerFilters);
+    toggleVpc.addEventListener('change', applyLayerFilters);
+    toggleSubnets.addEventListener('change', applyLayerFilters);
+    toggleRt.addEventListener('change', applyLayerFilters);
+
+    // Tab switching
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.dataset.tab;
+        
+        // Update active states
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        button.classList.add('active');
+        document.getElementById(`${targetTab}-tab`).classList.add('active');
+      });
+    });
+
+    // Flow analysis
+    analyzeFlow.addEventListener('click', () => {
+      const source = flowSource.value;
+      const target = flowTarget.value;
+      if (source && target && currentData) {
+        analyzeDataFlow(source, target, currentData.graph, currentData.resolvedCfg);
+      }
+    });
+
+    // Helper functions for new tabs
+    function inferSubnetType(subnetName, vpcName) {
+      if (!subnetName) return 'Unknown';
+      
+      const name = subnetName.toLowerCase();
+      const vpc = vpcName.toLowerCase();
+      
+      // TGW Attachment subnets
+      if (name.includes('tgwattach') || name.includes('tgw-attach') || name.includes('maintgwattach')) {
+        return 'TGW Attachment - Connects VPC to Transit Gateway';
+      }
+      
+      // Perimeter VPC specific patterns
+      if (vpc.includes('perimeter')) {
+        if (name.includes('public') || name.includes('alb')) {
+          return 'Public - Internet-facing ALB and public resources';
+        }
+        if (name.includes('firewall') || name.includes('inspection') || name.includes('cnfgw')) {
+          return 'Firewall - Palo Alto CNFGW inspection layer';
+        }
+        if (name.includes('nat')) {
+          return 'NAT - Outbound internet access via NAT Gateway';
+        }
+        if (name.includes('private')) {
+          return 'Private - Internal perimeter services';
+        }
+      }
+      
+      // Endpoint VPC patterns
+      if (vpc.includes('endpoint')) {
+        if (name.includes('endpoint')) {
+          return 'VPC Endpoints - Private access to AWS services';
+        }
+      }
+      
+      // Central VPC patterns
+      if (vpc.includes('central')) {
+        if (name.includes('web')) {
+          return 'Web Tier - Load balancers and web servers';
+        }
+        if (name.includes('app')) {
+          return 'Application Tier - Business logic and services';
+        }
+        if (name.includes('db') || name.includes('data')) {
+          return 'Database Tier - Data storage and databases';
+        }
+      }
+      
+      // Workload VPC patterns (Dev/Test/Prod)
+      if (vpc.includes('dev') || vpc.includes('test') || vpc.includes('prod')) {
+        if (name.includes('web')) {
+          return 'Web Tier - Application load balancers and web services';
+        }
+        if (name.includes('app')) {
+          return 'Application Tier - Core application components';
+        }
+        if (name.includes('db') || name.includes('data')) {
+          return 'Database Tier - Application databases and storage';
+        }
+        if (name.includes('private')) {
+          return 'Private - General workload subnet';
+        }
+      }
+      
+      // Generic patterns
+      if (name.includes('public')) {
+        return 'Public - Internet-accessible resources';
+      }
+      if (name.includes('private')) {
+        return 'Private - Internal resources only';
+      }
+      if (name.includes('isolated')) {
+        return 'Isolated - No internet access';
+      }
+      if (name.includes('web')) {
+        return 'Web Tier - Web-facing components';
+      }
+      if (name.includes('app')) {
+        return 'Application Tier - Application services';
+      }
+      if (name.includes('db') || name.includes('data')) {
+        return 'Database Tier - Data layer';
+      }
+      
+      return 'General Purpose';
+    }
+    
+    function generateOverview(graph, resolvedCfg) {
+      const vpcs = graph.vpcs || [];
+      const tgws = graph.transit_gateways || [];
+      const attachments = graph.tgw_attachments || [];
+      const dxGateways = graph.dx_gateways || [];
+      const vpnConnections = graph.vpn_connections || [];
+      const cnfgwEndpoints = graph.cnfgw_endpoints || [];
+      
+      // Extract detailed configuration data
+      const region = resolvedCfg?.homeRegion || 'ca-central-1';
+      const namingPrefix = 'AWSAccelerator'; // From LZA standard
+      
+      // Analyze TGW details
+      const mainTgw = tgws[0] || {};
+      const routeTables = [];
+      if (resolvedCfg?.transitGateways) {
+        resolvedCfg.transitGateways.forEach(tgw => {
+          (tgw.routeTables || []).forEach(rt => {
+            routeTables.push({ 
+              tgw: tgw.name, 
+              name: rt.name, 
+              routes: rt.routes || [],
+              associations: rt.associations || [],
+              propagations: rt.propagations || []
+            });
+          });
+        });
+      }
+      
+      // Analyze VPC roles
+      const perimeterVpc = vpcs.find(v => v.name.toLowerCase().includes('perimeter'));
+      const endpointVpc = vpcs.find(v => v.name.toLowerCase().includes('endpoint'));
+      const centralVpc = vpcs.find(v => v.name.toLowerCase().includes('central'));
+      const workloadVpcs = vpcs.filter(v => 
+        !v.name.toLowerCase().includes('perimeter') && 
+        !v.name.toLowerCase().includes('endpoint') && 
+        !v.name.toLowerCase().includes('central')
+      );
+      
+      // Extract customer gateway info
+      const customerGateway = vpnConnections[0] || {};
+      
+      // Extract Direct Connect details
+      const dxDetails = dxGateways[0] || {};
+      const dxVif = dxDetails.virtual_interfaces?.[0] || {};
+      
+      // Build CIDR table data
+      const cidrTables = {};
+      vpcs.forEach(vpc => {
+        if (resolvedCfg?.vpcs) {
+          const resolvedVpc = resolvedCfg.vpcs.find(v => v.name === vpc.name);
+          if (resolvedVpc?.cidrs) {
+            const vpcCidr = resolvedVpc.cidrs[0];
+            cidrTables[vpc.name] = {
+              cidr: vpcCidr,
+              subnets: (vpc.subnets || []).map(s => ({
+                name: s.name,
+                cidr: s.cidr,
+                type: inferSubnetType(s.name, vpc.name),
+                az: s.az
+              }))
+            };
+          }
+        }
+      });
+      
+      const html = `
+        <div style="max-width: 1200px; margin: 0 auto; padding: 1rem; font-family: system-ui, sans-serif;">
+          
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 style="margin: 0 0 1rem 0; color: #1e293b; border-bottom: 2px solid #3b82f6; padding-bottom: 0.5rem;">🌐 High-Level Topology (At a Glance)</h2>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; font-family: system-ui, sans-serif; overflow-x: auto;">
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; min-width: 800px;">
+                
+                <!-- Internet Layer -->
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <div style="background: #ff6b6b; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    🌍 Internet
+                  </div>
+                  <div style="color: #ffd93d; font-size: 1.5rem;">↓</div>
+                </div>
+                
+                <!-- Perimeter Layer -->
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                  <div style="background: #4ecdc4; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    🛡️ Perimeter ALB
+                  </div>
+                  <div style="color: #ffd93d; font-size: 1.5rem;">→</div>
+                  <div style="background: #ff9f43; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    🔥 ${cnfgwEndpoints.length > 0 ? 'Palo Alto CNFGW' : 'Security Controls'}
+                  </div>
+                </div>
+                
+                <div style="color: #ffd93d; font-size: 1.5rem;">↓</div>
+                
+                <!-- Transit Gateway Hub -->
+                <div style="background: #6c5ce7; padding: 1rem 2rem; border-radius: 12px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 6px 12px rgba(0,0,0,0.3); border: 3px solid #a29bfe;">
+                  ⚙️ Transit Gateway (Hub)
+                </div>
+                
+                <!-- Dynamic arrows based on actual VPCs -->
+                <div style="display: flex; gap: 2rem; color: #ffd93d; font-size: 1.2rem; justify-content: center;">
+                  ${endpointVpc ? '<span>↙️</span>' : ''}
+                  ${centralVpc ? '<span>↓</span>' : ''}
+                  <span>↓</span> <!-- Always show workload arrow -->
+                  ${(dxGateways.length > 0 || vpnConnections.length > 0) ? '<span>↘️</span>' : ''}
+                </div>
+                
+                <!-- VPC Layer -->
+                <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center;">
+                  ${endpointVpc ? `
+                    <div style="text-align: center;">
+                      <div style="background: #00b894; padding: 0.75rem 1rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); margin-bottom: 0.5rem;">
+                        🔌 Endpoint VPC
+                      </div>
+                      <div style="font-size: 0.8rem; opacity: 0.9;">Private Endpoints</div>
+                    </div>
+                  ` : ''}
+                  
+                  ${centralVpc ? `
+                    <div style="text-align: center;">
+                      <div style="background: #0984e3; padding: 0.75rem 1rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); margin-bottom: 0.5rem;">
+                        🏢 Central VPC
+                      </div>
+                      <div style="font-size: 0.8rem; opacity: 0.9;">Shared Services</div>
+                    </div>
+                  ` : ''}
+                  
+                  <div style="text-align: center;">
+                    <div style="background: #fdcb6e; color: #2d3436; padding: 0.75rem 1rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); margin-bottom: 0.5rem;">
+                      💼 Workload VPCs
+                    </div>
+                    <div style="font-size: 0.8rem; opacity: 0.9;">Dev / Test / Prod</div>
+                  </div>
+                  
+                  ${dxGateways.length > 0 || vpnConnections.length > 0 ? `
+                    <div style="text-align: center;">
+                      <div style="background: #e17055; padding: 0.75rem 1rem; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); margin-bottom: 0.5rem;">
+                        🏠 ${dxGateways.length > 0 ? 'Direct Connect' : 'VPN'}
+                      </div>
+                      <div style="font-size: 0.8rem; opacity: 0.9;">On-Premises</div>
+                    </div>
+                  ` : ''}
+                </div>
+                
+              </div>
+            </div>
+            <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; font-size: 0.9rem;">
+              <div style="background: rgba(78, 205, 196, 0.1); padding: 1rem; border-radius: 6px; border-left: 4px solid #4ecdc4;">
+                <strong style="color: #2d3436;">🛡️ Perimeter VPC</strong><br>
+                <span style="color: #636e72;">Only place with public ingress/egress (IGW/NAT)</span>
+              </div>
+              <div style="background: rgba(108, 92, 231, 0.1); padding: 1rem; border-radius: 6px; border-left: 4px solid #6c5ce7;">
+                <strong style="color: #2d3436;">⚙️ Transit Gateway</strong><br>
+                <span style="color: #636e72;">Central hub - every VPC attaches here</span>
+              </div>
+              <div style="background: rgba(0, 184, 148, 0.1); padding: 1rem; border-radius: 6px; border-left: 4px solid #00b894;">
+                <strong style="color: #2d3436;">🔌 Shared Services</strong><br>
+                <span style="color: #636e72;">Endpoint/Central VPCs host DNS, endpoints, etc.</span>
+              </div>
+              <div style="background: rgba(253, 203, 110, 0.1); padding: 1rem; border-radius: 6px; border-left: 4px solid #fdcb6e;">
+                <strong style="color: #2d3436;">💼 Workload VPCs</strong><br>
+                <span style="color: #636e72;">Private-only, route via TGW → Perimeter or on-prem</span>
+              </div>
+            </div>
+          </div>
+          
+          <div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 style="margin: 0 0 1rem 0; color: #0c4a6e; border-bottom: 2px solid #0ea5e9; padding-bottom: 0.5rem;">⚙️ Configuration at a Glance (Plain English)</h2>
+            
+            <h3 style="color: #0c4a6e; margin: 1.5rem 0 0.5rem 0;">Global/LZA Defaults</h3>
+            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+              <li>Default VPCs in each account are deleted</li>
+              <li><strong>Region:</strong> ${region}</li>
+              <li><strong>Naming prefix:</strong> ${namingPrefix}</li>
+            </ul>
+            
+            <h3 style="color: #0c4a6e; margin: 1.5rem 0 0.5rem 0;">Transit Gateway (Network account)</h3>
+            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+              <li><strong>TGW:</strong> ${mainTgw.name || 'Network-Main'} (ASN ${mainTgw.asn || '64514'})</li>
+              <li><strong>DNS / VPN ECMP:</strong> enabled</li>
+              <li><strong>Default associations/propagation:</strong> disabled</li>
+              <li><strong>Auto-accept attachments:</strong> enabled</li>
+            </ul>
+            <div style="margin: 1rem 0;">
+              <strong>TGW Route Tables:</strong>
+              <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                ${routeTables.map(rt => 
+                  `<li><strong>${rt.name}</strong> – ${rt.routes.length} routes configured</li>`
+                ).join('')}
+              </ul>
+            </div>
+            
+            <h3 style="color: #0c4a6e; margin: 1.5rem 0 0.5rem 0;">Hybrid Connectivity (Network account)</h3>
+            ${customerGateway.customer_gateway ? `
+              <p><strong>Customer Gateway:</strong> ${customerGateway.customer_gateway} (IP from config)</p>
+            ` : ''}
+            ${dxGateways.length > 0 ? `
+              <div style="margin: 1rem 0;">
+                <strong>Direct Connect:</strong>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                  <li><strong>DXGW:</strong> ${dxDetails.name} (ASN ${dxDetails.asn || '64515'})</li>
+                  <li>Attached to ${mainTgw.name || 'Network-Main'} TGW</li>
+                  ${dxVif.vlan ? `<li>VLAN ${dxVif.vlan}, BGP with Customer ASN ${dxVif.customer_asn || '64999'}</li>` : ''}
+                </ul>
+              </div>
+            ` : '<p><em>No Direct Connect configured</em></p>'}
+            
+            <h3 style="color: #0c4a6e; margin: 1.5rem 0 0.5rem 0;">Central Network Services (Network account)</h3>
+            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+              <li>Route 53 Resolver (inbound/outbound endpoints)</li>
+              <li>DHCP options</li>
+              <li>Central endpoint policies (consumed by Endpoint VPC)</li>
+            </ul>
+          </div>
+          
+          <div style="background: #f0fdf4; border: 1px solid #22c55e; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 style="margin: 0 0 1rem 0; color: #14532d; border-bottom: 2px solid #22c55e; padding-bottom: 0.5rem;">🏗️ VPC Roles (What Lives Where)</h2>
+            
+            ${perimeterVpc ? `
+              <h3 style="color: #14532d; margin: 1.5rem 0 0.5rem 0;">Perimeter VPC (${perimeterVpc.account} account)</h3>
+              <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                <li>The only VPC with IGW/NAT; all public ingress/egress lives here</li>
+                <li>Attached to ${mainTgw.name || 'Network-Main'} TGW</li>
+                <li>CIDR: <code>${cidrTables[perimeterVpc.name]?.cidr || 'N/A'}</code></li>
+                <li>Subnets (${perimeterVpc.azs?.join('/') || 'Multi-AZ'}) for Public, Firewall/Inspection, NAT, and TGW attach</li>
+                <li>${cnfgwEndpoints.length > 0 ? 'Palo Alto CNGFW is inline between the Public ALB and internal destinations' : 'Standard perimeter security controls'}</li>
+                <li><strong>Use cases:</strong> internet ingress, controlled egress, inspection</li>
+              </ul>
+            ` : '<p><em>No Perimeter VPC detected</em></p>'}
+            
+            ${endpointVpc ? `
+              <h3 style="color: #14532d; margin: 1.5rem 0 0.5rem 0;">Endpoint VPC (${endpointVpc.account} account)</h3>
+              <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                <li>No IGW, no NAT</li>
+                <li>Hosts Interface/Gateway endpoints (SSM, S3, ECR, etc.) for the org</li>
+                <li>CIDR: <code>${cidrTables[endpointVpc.name]?.cidr || 'N/A'}</code></li>
+                <li>Attached to TGW; provides private access to AWS services from any workload VPC</li>
+              </ul>
+            ` : ''}
+            
+            ${centralVpc ? `
+              <h3 style="color: #14532d; margin: 1.5rem 0 0.5rem 0;">Central VPC (${centralVpc.account} account)</h3>
+              <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                <li>No IGW, no NAT</li>
+                <li>Hosts shared/central services (DNS, monitoring, directory, etc.)</li>
+                <li>CIDR: <code>${cidrTables[centralVpc.name]?.cidr || 'N/A'}</code></li>
+                <li>Attached to TGW with routes via the curated tables</li>
+              </ul>
+            ` : ''}
+            
+            <h3 style="color: #14532d; margin: 1.5rem 0 0.5rem 0;">Dev/Test/Prod VPCs (workload baselines)</h3>
+            <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+              <li>No IGW, no NAT (private-only)</li>
+              <li>App subnets (${workloadVpcs.length > 0 ? workloadVpcs[0].azs?.join('/') || 'Multi-AZ' : 'Multi-AZ'}) and TGW attach subnets</li>
+              <li>All outbound goes TGW → Perimeter (and then out, if allowed); no direct internet</li>
+              <li>East-west between workloads is governed by TGW tables and security policy</li>
+            </ul>
+            ${workloadVpcs.map(vpc => 
+              `<p style="margin: 0.5rem 0; padding-left: 1rem;"><strong>${vpc.name}</strong> (${vpc.account}): <code>${cidrTables[vpc.name]?.cidr || 'N/A'}</code></p>`
+            ).join('')}
+          </div>
+          
+          
+          <div style="background: #fdf2f8; border: 1px solid #ec4899; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+            <h2 style="margin: 0 0 1rem 0; color: #831843; border-bottom: 2px solid #ec4899; padding-bottom: 0.5rem;">📊 Reference Details (CIDR Ranges)</h2>
+            
+            ${Object.entries(cidrTables).map(([vpcName, data]) => `
+              <div style="margin: 1.5rem 0;">
+                <h3 style="color: #831843; margin: 0 0 0.5rem 0;">${vpcName} – ${data.cidr}</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                  <thead>
+                    <tr style="background: #f3f4f6;">
+                      <th style="border: 1px solid #d1d5db; padding: 0.5rem; text-align: left;">Subnet</th>
+                      <th style="border: 1px solid #d1d5db; padding: 0.5rem; text-align: left;">CIDR</th>
+                      <th style="border: 1px solid #d1d5db; padding: 0.5rem; text-align: left;">Type</th>
+                      <th style="border: 1px solid #d1d5db; padding: 0.5rem; text-align: left;">AZ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${data.subnets.map(subnet => `
+                      <tr>
+                        <td style="border: 1px solid #d1d5db; padding: 0.5rem;">${subnet.name}</td>
+                        <td style="border: 1px solid #d1d5db; padding: 0.5rem; font-family: monospace;">${subnet.cidr || 'N/A'}</td>
+                        <td style="border: 1px solid #d1d5db; padding: 0.5rem;">${subnet.type}</td>
+                        <td style="border: 1px solid #d1d5db; padding: 0.5rem;">${subnet.az || 'N/A'}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div style="background: #f1f5f9; border: 1px solid #64748b; border-radius: 8px; padding: 1.5rem;">
+            <h2 style="margin: 0 0 1rem 0; color: #334155; border-bottom: 2px solid #64748b; padding-bottom: 0.5rem;">🔄 Traffic Flow Examples</h2>
+            
+            <h3 style="color: #334155; margin: 1.5rem 0 0.5rem 0;">Ingress: Internet → Project Service</h3>
+            <div style="background: #334155; color: #e2e8f0; padding: 1rem; border-radius: 4px; font-family: monospace; font-size: 0.85rem; margin: 0.5rem 0;">
+              Internet client → Cloudflare → Public ALB (Perimeter) → ${cnfgwEndpoints.length > 0 ? 'Palo Alto' : 'Security Controls'} → TGW → Private ALB (Workload VPC) → Application
+            </div>
+            <ol style="font-size: 0.9rem; margin: 0.5rem 0; padding-left: 1.5rem;">
+              <li>DNS/Cloudflare resolves to the Perimeter Public ALB</li>
+              <li>Perimeter Public ALB forwards to ${cnfgwEndpoints.length > 0 ? 'Palo Alto CNGFW ENIs (A/B/D)' : 'security controls'}</li>
+              ${cnfgwEndpoints.length > 0 ? '<li>Palo Alto enforces rules (e.g., allow TCP/443 from Cloudflare IPs)</li>' : ''}
+              <li>Traffic egresses → Perimeter-Nat subnet → TGW (route 10.235.0.0/16 → TGW)</li>
+              <li>TGW uses route tables to reach target VPC attachment</li>
+              <li>Target VPC routes deliver to Private ALB → Application</li>
+            </ol>
+            
+            <h3 style="color: #334155; margin: 1.5rem 0 0.5rem 0;">Egress: Workload → Internet (Controlled)</h3>
+            <ol style="font-size: 0.9rem; margin: 0.5rem 0; padding-left: 1.5rem;">
+              <li><strong>Workload VPC:</strong> default route only to TGW</li>
+              <li><strong>TGW:</strong> default route to Perimeter</li>
+              <li><strong>Perimeter:</strong> traffic passes via ${cnfgwEndpoints.length > 0 ? 'Palo Alto CNGFW and NAT' : 'NAT'} to IGW (if policy allows)</li>
+              <li>All flows are inspected and logged; direct egress from workload VPCs is not possible</li>
+            </ol>
+          </div>
+          
+        </div>
+      `;
+      
+      overviewContent.innerHTML = html;
+    }
+
+    function runVerification(graph, resolvedCfg) {
+      const checks = [];
+      const vpcs = graph.vpcs || [];
+      const tgws = graph.transit_gateways || [];
+      const dxGateways = graph.dx_gateways || [];
+      const vpnConnections = graph.vpn_connections || [];
+      
+      // 1. CIDR Overlap Detection
+      const cidrs = [];
+      vpcs.forEach(vpc => {
+        if (vpc.cidr) cidrs.push({ vpc: vpc.name, cidr: vpc.cidr });
+        if (resolvedCfg?.vpcs) {
+          const resolvedVpc = resolvedCfg.vpcs.find(v => v.name === vpc.name);
+          if (resolvedVpc?.cidrs) {
+            resolvedVpc.cidrs.forEach(cidr => {
+              cidrs.push({ vpc: vpc.name, cidr });
+            });
+          }
+        }
+      });
+      
+      const overlaps = findCidrOverlaps(cidrs);
+      if (overlaps.length === 0) {
+        checks.push({ type: 'pass', message: 'No CIDR overlaps detected' });
+      } else {
+        overlaps.forEach(overlap => {
+          checks.push({ type: 'fail', message: `CIDR overlap: ${overlap.cidr1} (${overlap.vpc1}) and ${overlap.cidr2} (${overlap.vpc2})` });
+        });
+      }
+      
+      // 2. CIDR Size Validation
+      cidrs.forEach(({ vpc, cidr }) => {
+        if (cidr) {
+          const mask = parseInt(cidr.split('/')[1]);
+          if (mask > 28) {
+            checks.push({ type: 'warning', message: `${vpc}: CIDR ${cidr} is very small (/${mask}) - may limit growth` });
+          } else if (mask < 16) {
+            checks.push({ type: 'warning', message: `${vpc}: CIDR ${cidr} is very large (/${mask}) - may waste IP space` });
+          }
+        }
+      });
+      
+      // 3. Transit Gateway Connectivity
+      if (tgws.length > 0) {
+        checks.push({ type: 'pass', message: 'Transit Gateway present for inter-VPC routing' });
+        
+        const attachedVpcs = new Set((graph.tgw_attachments || []).map(a => a.vpc_id));
+        const unattachedVpcs = vpcs.filter(vpc => !attachedVpcs.has(vpc.id));
+        
+        if (unattachedVpcs.length === 0) {
+          checks.push({ type: 'pass', message: 'All VPCs are attached to Transit Gateway' });
+        } else {
+          checks.push({ type: 'warning', message: `${unattachedVpcs.length} VPCs not attached to TGW: ${unattachedVpcs.map(v => v.name).join(', ')}` });
+        }
+      } else {
+        checks.push({ type: 'warning', message: 'No Transit Gateway found - VPCs may be isolated' });
+      }
+      
+      // 4. Multi-AZ High Availability
+      vpcs.forEach(vpc => {
+        const azs = new Set((vpc.subnets || []).map(s => s.az).filter(Boolean));
+        if (azs.size >= 3) {
+          checks.push({ type: 'pass', message: `${vpc.name}: Excellent HA with ${azs.size} AZs` });
+        } else if (azs.size === 2) {
+          checks.push({ type: 'pass', message: `${vpc.name}: Good HA with 2 AZs` });
+        } else if (azs.size === 1) {
+          checks.push({ type: 'warning', message: `${vpc.name}: Single AZ deployment - no high availability` });
+        } else {
+          checks.push({ type: 'fail', message: `${vpc.name}: No AZ information available` });
+        }
+      });
+      
+      // 5. Account Isolation Validation
+      const accountVpcs = {};
+      vpcs.forEach(vpc => {
+        const account = vpc.account || 'unknown';
+        if (!accountVpcs[account]) accountVpcs[account] = [];
+        accountVpcs[account].push(vpc);
+      });
+      
+      const criticalAccounts = ['Prod', 'Production'];
+      Object.entries(accountVpcs).forEach(([account, vpcs]) => {
+        if (criticalAccounts.some(c => account.toLowerCase().includes(c.toLowerCase()))) {
+          if (vpcs.length === 1) {
+            checks.push({ type: 'pass', message: `${account}: Proper isolation with single VPC` });
+          } else {
+            checks.push({ type: 'warning', message: `${account}: ${vpcs.length} VPCs - consider consolidation for production` });
+          }
+        }
+      });
+      
+      // 6. Subnet Type Distribution
+      vpcs.forEach(vpc => {
+        const subnetTypes = {};
+        (vpc.subnets || []).forEach(subnet => {
+          const type = subnet.type || 'unknown';
+          subnetTypes[type] = (subnetTypes[type] || 0) + 1;
+        });
+        
+        const hasPublic = subnetTypes.public > 0;
+        const hasPrivate = subnetTypes.private > 0;
+        const hasIsolated = subnetTypes.isolated > 0;
+        
+        if (hasPublic && hasPrivate) {
+          checks.push({ type: 'pass', message: `${vpc.name}: Good subnet architecture (public + private)` });
+        } else if (hasPrivate && hasIsolated) {
+          checks.push({ type: 'pass', message: `${vpc.name}: Secure subnet architecture (private + isolated)` });
+        } else if (hasPublic && !hasPrivate) {
+          checks.push({ type: 'warning', message: `${vpc.name}: Only public subnets - security risk` });
+        }
+      });
+      
+      // 7. Hybrid Connectivity Redundancy
+      if (dxGateways.length > 0 && vpnConnections.length > 0) {
+        checks.push({ type: 'pass', message: 'Excellent hybrid connectivity: Direct Connect + VPN backup' });
+      } else if (dxGateways.length > 0) {
+        checks.push({ type: 'warning', message: 'Direct Connect without VPN backup - single point of failure' });
+      } else if (vpnConnections.length > 0) {
+        checks.push({ type: 'pass', message: 'VPN connectivity to on-premises established' });
+      } else {
+        checks.push({ type: 'warning', message: 'No hybrid connectivity - cloud-only deployment' });
+      }
+      
+      // 8. Route Table Association Validation
+      (graph.tgw_attachments || []).forEach(attachment => {
+        const hasAssociation = attachment.route_tables?.tgw_association;
+        const hasPropagation = attachment.route_tables?.tgw_propagations?.length > 0;
+        
+        if (!hasAssociation && !hasPropagation) {
+          checks.push({ type: 'fail', message: `${attachment.vpc_id}: TGW attachment missing route table configuration` });
+        } else if (!hasAssociation) {
+          checks.push({ type: 'warning', message: `${attachment.vpc_id}: TGW attachment missing route table association` });
+        }
+      });
+      
+      // 9. Security Group Validation
+      if (resolvedCfg?.vpcs) {
+        resolvedCfg.vpcs.forEach(vpc => {
+          const sgCount = (vpc.securityGroups || []).length;
+          if (sgCount === 0) {
+            checks.push({ type: 'warning', message: `${vpc.name}: No custom security groups defined - using defaults only` });
+          } else if (sgCount > 20) {
+            checks.push({ type: 'warning', message: `${vpc.name}: ${sgCount} security groups - consider consolidation` });
+          }
+        });
+      }
+      
+      // 10. CCCS Medium Compliance Checks
+      const perimeterVpcs = vpcs.filter(vpc => vpc.name.toLowerCase().includes('perimeter'));
+      const centralVpcs = vpcs.filter(vpc => vpc.name.toLowerCase().includes('central') || vpc.name.toLowerCase().includes('network'));
+      
+      if (perimeterVpcs.length > 0) {
+        checks.push({ type: 'pass', message: 'CCCS Pattern: Perimeter VPC identified for edge security' });
+      } else {
+        checks.push({ type: 'warning', message: 'CCCS Pattern: No perimeter VPC found - consider dedicated edge security' });
+      }
+      
+      if (centralVpcs.length > 0) {
+        checks.push({ type: 'pass', message: 'CCCS Pattern: Central/Network VPC identified for shared services' });
+      }
+      
+      // 11. Naming Convention Validation
+      const namingIssues = [];
+      vpcs.forEach(vpc => {
+        if (!vpc.name || vpc.name.length < 3) {
+          namingIssues.push(`${vpc.name || 'unnamed'}: Name too short`);
+        }
+        if (vpc.name && !/^[a-zA-Z][a-zA-Z0-9-]*$/.test(vpc.name)) {
+          namingIssues.push(`${vpc.name}: Invalid characters in name`);
+        }
+      });
+      
+      if (namingIssues.length === 0) {
+        checks.push({ type: 'pass', message: 'All VPC names follow proper conventions' });
+      } else {
+        namingIssues.forEach(issue => {
+          checks.push({ type: 'warning', message: `Naming: ${issue}` });
+        });
+      }
+      
+      // 12. Resource Limits Check
+      const totalSubnets = vpcs.reduce((sum, vpc) => sum + (vpc.subnets?.length || 0), 0);
+      if (totalSubnets > 200) {
+        checks.push({ type: 'warning', message: `${totalSubnets} total subnets - approaching AWS limits` });
+      }
+      
+      if (vpcs.length > 100) {
+        checks.push({ type: 'warning', message: `${vpcs.length} VPCs - consider consolidation` });
+      }
+      
+      const html = checks.map(check => 
+        `<div class="verification-item ${check.type}">
+          <span>${check.type === 'pass' ? '✓' : check.type === 'fail' ? '✗' : '⚠'}</span>
+          <span>${check.message}</span>
+        </div>`
+      ).join('');
+      
+      verificationContent.innerHTML = html || '<p>No verification checks available.</p>';
+    }
+
+    function findCidrOverlaps(cidrs) {
+      const overlaps = [];
+      for (let i = 0; i < cidrs.length; i++) {
+        for (let j = i + 1; j < cidrs.length; j++) {
+          if (cidrs[i].vpc !== cidrs[j].vpc && cidrsOverlap(cidrs[i].cidr, cidrs[j].cidr)) {
+            overlaps.push({
+              vpc1: cidrs[i].vpc,
+              cidr1: cidrs[i].cidr,
+              vpc2: cidrs[j].vpc,
+              cidr2: cidrs[j].cidr
+            });
+          }
+        }
+      }
+      return overlaps;
+    }
+
+    function cidrsOverlap(cidr1, cidr2) {
+      if (!cidr1 || !cidr2) return false;
+      try {
+        const [ip1, mask1] = cidr1.split('/');
+        const [ip2, mask2] = cidr2.split('/');
+        
+        const ipToInt = ip => ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0);
+        const maskToInt = mask => ~((1 << (32 - parseInt(mask))) - 1);
+        
+        const net1 = ipToInt(ip1) & maskToInt(mask1);
+        const net2 = ipToInt(ip2) & maskToInt(mask2);
+        const mask = Math.max(maskToInt(mask1), maskToInt(mask2));
+        
+        return (net1 & mask) === (net2 & mask);
+      } catch {
+        return false;
+      }
+    }
+
+    function populateFlowSelectors(graph, resolvedCfg) {
+      const sources = [
+        { value: 'internet', label: 'Internet (Public)' },
+        { value: 'onprem', label: 'On-Premises' },
+        { value: 'external-aws', label: 'External AWS Account' }
+      ];
+      
+      const targets = [];
+      
+      (graph.vpcs || []).forEach(vpc => {
+        sources.push({ value: `vpc:${vpc.id}`, label: `VPC: ${vpc.name}` });
+        targets.push({ value: `vpc:${vpc.id}`, label: `VPC: ${vpc.name}` });
+        
+        (vpc.subnets || []).forEach(subnet => {
+          targets.push({ value: `subnet:${subnet.id}`, label: `Subnet: ${subnet.name} (${vpc.name})` });
+        });
+      });
+      
+      flowSource.innerHTML = '<option value="">Select source...</option>' + 
+        sources.map(s => `<option value="${s.value}">${s.label}</option>`).join('');
+      
+      flowTarget.innerHTML = '<option value="">Select target...</option>' + 
+        targets.map(t => `<option value="${t.value}">${t.label}</option>`).join('');
+    }
+
+    function analyzeDataFlow(source, target, graph, resolvedCfg) {
+      const path = calculateFlowPath(source, target, graph);
+      
+      const html = `
+        <div class="flow-path">
+          <h3>Data Flow: ${getFlowLabel(source)} → ${getFlowLabel(target)}</h3>
+          ${path.map((step, i) => 
+            `<div class="flow-step">
+              ${i > 0 ? '<span class="flow-arrow">→</span>' : ''}
+              <span>${step.component}</span>
+              <small style="color: #6b7280;">${step.description}</small>
+            </div>`
+          ).join('')}
+          
+          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+            <h4>Security Considerations:</h4>
+            <ul>
+              ${path.filter(s => s.security).map(s => `<li>${s.security}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+      
+      flowContent.innerHTML = html;
+    }
+
+    function calculateFlowPath(source, target, graph) {
+      const path = [];
+      
+      // Simplified flow calculation - in reality this would be much more complex
+      if (source === 'internet') {
+        path.push({ component: 'Internet', description: 'External traffic source' });
+        path.push({ component: 'Internet Gateway', description: 'AWS IGW for public access', security: 'NACLs and Security Groups apply' });
+      } else if (source === 'onprem') {
+        path.push({ component: 'On-Premises', description: 'Corporate network' });
+        path.push({ component: 'VPN/Direct Connect', description: 'Hybrid connectivity', security: 'Encrypted tunnel required' });
+      }
+      
+      // Add TGW if cross-VPC
+      if (source.startsWith('vpc:') && target.startsWith('vpc:')) {
+        const sourceVpc = source.split(':')[1];
+        const targetVpc = target.split(':')[1];
+        if (sourceVpc !== targetVpc) {
+          path.push({ component: 'Transit Gateway', description: 'Inter-VPC routing', security: 'Route table rules apply' });
+        }
+      }
+      
+      // Add target components
+      if (target.startsWith('vpc:')) {
+        const vpcId = target.split(':')[1];
+        const vpc = (graph.vpcs || []).find(v => v.id === vpcId);
+        path.push({ component: `VPC: ${vpc?.name || vpcId}`, description: 'Target VPC', security: 'VPC-level security controls' });
+      } else if (target.startsWith('subnet:')) {
+        const subnetId = target.split(':')[1];
+        // Find subnet and its VPC
+        let targetSubnet = null;
+        let targetVpc = null;
+        (graph.vpcs || []).forEach(vpc => {
+          const subnet = (vpc.subnets || []).find(s => s.id === subnetId);
+          if (subnet) {
+            targetSubnet = subnet;
+            targetVpc = vpc;
+          }
+        });
+        
+        if (targetVpc) {
+          path.push({ component: `VPC: ${targetVpc.name}`, description: 'Target VPC' });
+        }
+        if (targetSubnet) {
+          path.push({ component: `Subnet: ${targetSubnet.name}`, description: `${targetSubnet.type} subnet in ${targetSubnet.az}`, security: 'Subnet NACLs and Security Groups' });
+        }
+      }
+      
+      return path;
+    }
+
+    function getFlowLabel(endpoint) {
+      if (endpoint === 'internet') return 'Internet';
+      if (endpoint === 'onprem') return 'On-Premises';
+      if (endpoint === 'external-aws') return 'External AWS';
+      if (endpoint.startsWith('vpc:')) return `VPC ${endpoint.split(':')[1]}`;
+      if (endpoint.startsWith('subnet:')) return `Subnet ${endpoint.split(':')[1]}`;
+      return endpoint;
+    }
+  </script>
+</body>
+</html>

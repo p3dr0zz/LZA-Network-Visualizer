@@ -1,0 +1,3732 @@
+{
+  "metadata": {
+    "generated_at": "2025-12-04T15:20:49.921373+00:00"
+  },
+  "graph": {
+    "transit_gateways": [
+      {
+        "id": "Network-Main",
+        "name": "Network-Main",
+        "account": "Network",
+        "region": "ca-central-1",
+        "asn": 65521
+      }
+    ],
+    "vpcs": [
+      {
+        "id": "Endpoint",
+        "name": "Endpoint",
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidr": "10.7.0.0/22",
+        "azs": [
+          "a",
+          "b"
+        ],
+        "subnets": [
+          {
+            "id": "Endpoint-Endpoint-A",
+            "name": "Endpoint-A",
+            "cidr": "10.7.0.0/24",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Endpoint-Endpoint-B",
+            "name": "Endpoint-B",
+            "cidr": "10.7.1.0/24",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Endpoint-EndpointTgwAttach-A",
+            "name": "EndpointTgwAttach-A",
+            "cidr": "10.7.3.208/28",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Endpoint-EndpointTgwAttach-B",
+            "name": "EndpointTgwAttach-B",
+            "cidr": "10.7.3.224/28",
+            "az": "b",
+            "type": "unknown"
+          }
+        ]
+      },
+      {
+        "id": "Perimeter",
+        "name": "Perimeter",
+        "account": "Perimeter",
+        "region": "ca-central-1",
+        "cidr": "10.7.4.0/22",
+        "azs": [
+          "a",
+          "b"
+        ],
+        "subnets": [
+          {
+            "id": "Perimeter-Perimeter-A",
+            "name": "Perimeter-A",
+            "cidr": "10.7.4.0/24",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Perimeter-Perimeter-B",
+            "name": "Perimeter-B",
+            "cidr": "10.7.5.0/24",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Perimeter-PerimeterTgwAttach-A",
+            "name": "PerimeterTgwAttach-A",
+            "cidr": "10.7.7.208/28",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Perimeter-PerimeterTgwAttach-B",
+            "name": "PerimeterTgwAttach-B",
+            "cidr": "10.7.7.224/28",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Perimeter-PerimeterNat-A",
+            "name": "PerimeterNat-A",
+            "cidr": "10.7.7.176/28",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Perimeter-PerimeterNat-B",
+            "name": "PerimeterNat-B",
+            "cidr": "10.7.7.192/28",
+            "az": "b",
+            "type": "unknown"
+          }
+        ]
+      },
+      {
+        "id": "Dev",
+        "name": "Dev",
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidr": "10.2.0.0/16",
+        "azs": [
+          "a",
+          "b"
+        ],
+        "subnets": [
+          {
+            "id": "Dev-Dev-Web-A",
+            "name": "Dev-Web-A",
+            "cidr": "10.2.16.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-Web-B",
+            "name": "Dev-Web-B",
+            "cidr": "10.2.32.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-App-A",
+            "name": "Dev-App-A",
+            "cidr": "10.2.64.0/19",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-App-B",
+            "name": "Dev-App-B",
+            "cidr": "10.2.96.0/19",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-Data-A",
+            "name": "Dev-Data-A",
+            "cidr": "10.2.160.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-Data-B",
+            "name": "Dev-Data-B",
+            "cidr": "10.2.176.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-MainTgwAttach-A",
+            "name": "Dev-MainTgwAttach-A",
+            "cidr": "10.2.0.0/27",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-MainTgwAttach-B",
+            "name": "Dev-MainTgwAttach-B",
+            "cidr": "10.2.0.32/27",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-Mgmt-A",
+            "name": "Dev-Mgmt-A",
+            "cidr": "10.2.8.0/21",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Dev-Dev-Mgmt-B",
+            "name": "Dev-Mgmt-B",
+            "cidr": "10.2.208.0/21",
+            "az": "b",
+            "type": "unknown"
+          }
+        ]
+      },
+      {
+        "id": "Central",
+        "name": "Central",
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidr": "10.1.0.0/16",
+        "azs": [
+          "a",
+          "b"
+        ],
+        "subnets": [
+          {
+            "id": "Central-Central-Web-A",
+            "name": "Central-Web-A",
+            "cidr": "10.1.16.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-Web-B",
+            "name": "Central-Web-B",
+            "cidr": "10.1.32.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-App-A",
+            "name": "Central-App-A",
+            "cidr": "10.1.64.0/19",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-App-B",
+            "name": "Central-App-B",
+            "cidr": "10.1.96.0/19",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-Data-A",
+            "name": "Central-Data-A",
+            "cidr": "10.1.160.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-Data-B",
+            "name": "Central-Data-B",
+            "cidr": "10.1.176.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-MainTgwAttach-A",
+            "name": "Central-MainTgwAttach-A",
+            "cidr": "10.1.0.0/27",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-MainTgwAttach-B",
+            "name": "Central-MainTgwAttach-B",
+            "cidr": "10.1.0.32/27",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-Mgmt-A",
+            "name": "Central-Mgmt-A",
+            "cidr": "10.1.8.0/21",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Central-Central-Mgmt-B",
+            "name": "Central-Mgmt-B",
+            "cidr": "10.1.208.0/21",
+            "az": "b",
+            "type": "unknown"
+          }
+        ]
+      },
+      {
+        "id": "Test",
+        "name": "Test",
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidr": "10.3.0.0/16",
+        "azs": [
+          "a",
+          "b"
+        ],
+        "subnets": [
+          {
+            "id": "Test-Test-Web-A",
+            "name": "Test-Web-A",
+            "cidr": "10.3.16.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-Web-B",
+            "name": "Test-Web-B",
+            "cidr": "10.3.32.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-App-A",
+            "name": "Test-App-A",
+            "cidr": "10.3.64.0/19",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-App-B",
+            "name": "Test-App-B",
+            "cidr": "10.3.96.0/19",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-Data-A",
+            "name": "Test-Data-A",
+            "cidr": "10.3.160.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-Data-B",
+            "name": "Test-Data-B",
+            "cidr": "10.3.176.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-MainTgwAttach-A",
+            "name": "Test-MainTgwAttach-A",
+            "cidr": "10.3.0.0/27",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-MainTgwAttach-B",
+            "name": "Test-MainTgwAttach-B",
+            "cidr": "10.3.0.32/27",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-Mgmt-A",
+            "name": "Test-Mgmt-A",
+            "cidr": "10.3.8.0/21",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Test-Test-Mgmt-B",
+            "name": "Test-Mgmt-B",
+            "cidr": "10.3.208.0/21",
+            "az": "b",
+            "type": "unknown"
+          }
+        ]
+      },
+      {
+        "id": "Prod",
+        "name": "Prod",
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidr": "10.4.0.0/16",
+        "azs": [
+          "a",
+          "b"
+        ],
+        "subnets": [
+          {
+            "id": "Prod-Prod-Web-A",
+            "name": "Prod-Web-A",
+            "cidr": "10.4.16.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-Web-B",
+            "name": "Prod-Web-B",
+            "cidr": "10.4.32.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-App-A",
+            "name": "Prod-App-A",
+            "cidr": "10.4.64.0/19",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-App-B",
+            "name": "Prod-App-B",
+            "cidr": "10.4.96.0/19",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-Data-A",
+            "name": "Prod-Data-A",
+            "cidr": "10.4.160.0/20",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-Data-B",
+            "name": "Prod-Data-B",
+            "cidr": "10.4.176.0/20",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-MainTgwAttach-A",
+            "name": "Prod-MainTgwAttach-A",
+            "cidr": "10.4.0.0/27",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-MainTgwAttach-B",
+            "name": "Prod-MainTgwAttach-B",
+            "cidr": "10.4.0.32/27",
+            "az": "b",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-Mgmt-A",
+            "name": "Prod-Mgmt-A",
+            "cidr": "10.4.8.0/21",
+            "az": "a",
+            "type": "unknown"
+          },
+          {
+            "id": "Prod-Prod-Mgmt-B",
+            "name": "Prod-Mgmt-B",
+            "cidr": "10.4.208.0/21",
+            "az": "b",
+            "type": "unknown"
+          }
+        ]
+      }
+    ],
+    "tgw_attachments": [
+      {
+        "id": "Endpoint-Network-Main",
+        "tgw_id": "Network-Main",
+        "vpc_id": "Endpoint",
+        "name": "Endpoint",
+        "subnets": [
+          "Endpoint-EndpointTgwAttach-A",
+          "Endpoint-EndpointTgwAttach-B"
+        ],
+        "route_tables": {
+          "tgw_association": [
+            "Network-Main-Core"
+          ],
+          "tgw_propagations": [
+            "Network-Main-Segregated",
+            "Network-Main-Core",
+            "Network-Main-Shared",
+            "Network-Main-Standalone"
+          ]
+        }
+      },
+      {
+        "id": "Perimeter-Network-Main",
+        "tgw_id": "Network-Main",
+        "vpc_id": "Perimeter",
+        "name": "Perimeter",
+        "subnets": [
+          "Perimeter-PerimeterTgwAttach-A",
+          "Perimeter-PerimeterTgwAttach-B"
+        ],
+        "route_tables": {
+          "tgw_association": [
+            "Network-Main-Core"
+          ],
+          "tgw_propagations": []
+        }
+      },
+      {
+        "id": "Dev-Network-Main",
+        "tgw_id": "Network-Main",
+        "vpc_id": "Dev",
+        "name": "Dev-Main",
+        "subnets": [
+          "Dev-Dev-MainTgwAttach-A",
+          "Dev-Dev-MainTgwAttach-B"
+        ],
+        "route_tables": {
+          "tgw_association": [
+            "Network-Main-Segregated"
+          ],
+          "tgw_propagations": [
+            "Network-Main-Core",
+            "Network-Main-Shared"
+          ]
+        }
+      },
+      {
+        "id": "Central-Network-Main",
+        "tgw_id": "Network-Main",
+        "vpc_id": "Central",
+        "name": "Central-Main",
+        "subnets": [
+          "Central-Central-MainTgwAttach-A",
+          "Central-Central-MainTgwAttach-B"
+        ],
+        "route_tables": {
+          "tgw_association": [
+            "Network-Main-Shared"
+          ],
+          "tgw_propagations": [
+            "Network-Main-Core",
+            "Network-Main-Segregated",
+            "Network-Main-Shared"
+          ]
+        }
+      },
+      {
+        "id": "Test-Network-Main",
+        "tgw_id": "Network-Main",
+        "vpc_id": "Test",
+        "name": "Test-Main",
+        "subnets": [
+          "Test-Test-MainTgwAttach-A",
+          "Test-Test-MainTgwAttach-B"
+        ],
+        "route_tables": {
+          "tgw_association": [
+            "Network-Main-Segregated"
+          ],
+          "tgw_propagations": [
+            "Network-Main-Core",
+            "Network-Main-Shared"
+          ]
+        }
+      },
+      {
+        "id": "Prod-Network-Main",
+        "tgw_id": "Network-Main",
+        "vpc_id": "Prod",
+        "name": "Prod-Main",
+        "subnets": [
+          "Prod-Prod-MainTgwAttach-A",
+          "Prod-Prod-MainTgwAttach-B"
+        ],
+        "route_tables": {
+          "tgw_association": [
+            "Network-Main-Segregated"
+          ],
+          "tgw_propagations": [
+            "Network-Main-Core",
+            "Network-Main-Shared"
+          ]
+        }
+      }
+    ],
+    "dx_gateways": [],
+    "vpn_connections": [],
+    "cnfgw_endpoints": []
+  },
+  "resolved_network_config": {
+    "defaultVpc": {
+      "delete": true,
+      "excludeAccounts": []
+    },
+    "transitGateways": [
+      {
+        "name": "Network-Main",
+        "account": "Network",
+        "region": "ca-central-1",
+        "shareTargets": {
+          "organizationalUnits": [
+            "Infrastructure"
+          ]
+        },
+        "asn": 65521,
+        "dnsSupport": "enable",
+        "vpnEcmpSupport": "enable",
+        "defaultRouteTableAssociation": "disable",
+        "defaultRouteTablePropagation": "disable",
+        "autoAcceptSharingAttachments": "enable",
+        "routeTables": [
+          {
+            "name": "Network-Main-Core",
+            "routes": []
+          },
+          {
+            "name": "Network-Main-Segregated",
+            "routes": [
+              {
+                "destinationCidrBlock": "0.0.0.0/0",
+                "attachment": {
+                  "vpcName": "Perimeter",
+                  "account": "Perimeter"
+                }
+              },
+              {
+                "destinationCidrBlock": "10.2.0.0/16",
+                "blackhole": true
+              },
+              {
+                "destinationCidrBlock": "10.3.0.0/16",
+                "blackhole": true
+              },
+              {
+                "destinationCidrBlock": "10.4.0.0/16",
+                "blackhole": true
+              }
+            ]
+          },
+          {
+            "name": "Network-Main-Shared",
+            "routes": [
+              {
+                "destinationCidrBlock": "0.0.0.0/0",
+                "attachment": {
+                  "vpcName": "Perimeter",
+                  "account": "Perimeter"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Network-Main-Standalone",
+            "routes": []
+          }
+        ]
+      }
+    ],
+    "centralNetworkServices": {
+      "delegatedAdminAccount": "Network",
+      "ipams": [
+        {
+          "name": "accelerator-ipam",
+          "region": "ca-central-1",
+          "description": "Accelerator IPAM",
+          "operatingRegions": [
+            "ca-central-1"
+          ],
+          "pools": [
+            {
+              "name": "home-region-sandbox-pool",
+              "description": "Pool for sandbox environment",
+              "locale": "ca-central-1",
+              "provisionedCidrs": [
+                "10.0.0.0/8"
+              ],
+              "shareTargets": {
+                "organizationalUnits": [
+                  "Sandbox"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "networkFirewall": {
+        "firewalls": [
+          {
+            "name": "AWSAccelerator-firewall",
+            "region": "ca-central-1",
+            "firewallPolicy": "AWSAccelerator-policy",
+            "subnets": [
+              "Perimeter-A",
+              "Perimeter-B"
+            ],
+            "vpc": "Perimeter",
+            "loggingConfiguration": [
+              {
+                "destination": "s3",
+                "type": "ALERT"
+              },
+              {
+                "destination": "cloud-watch-logs",
+                "type": "FLOW"
+              }
+            ]
+          }
+        ],
+        "policies": [
+          {
+            "name": "AWSAccelerator-policy",
+            "regions": [
+              "ca-central-1"
+            ],
+            "firewallPolicy": {
+              "statelessDefaultActions": [
+                "aws:forward_to_sfe"
+              ],
+              "statelessFragmentDefaultActions": [
+                "aws:forward_to_sfe"
+              ],
+              "statefulRuleGroups": [
+                {
+                  "name": "AWSAccelerator-rule-group"
+                },
+                {
+                  "name": "AWSAccelerator-domain-list-group"
+                }
+              ]
+            },
+            "shareTargets": {
+              "accounts": [
+                "Perimeter"
+              ]
+            }
+          }
+        ],
+        "rules": [
+          {
+            "name": "AWSAccelerator-rule-group",
+            "regions": [
+              "ca-central-1"
+            ],
+            "capacity": 100,
+            "type": "STATEFUL",
+            "ruleGroup": {
+              "rulesSource": {
+                "statefulRules": [
+                  {
+                    "action": "DROP",
+                    "header": {
+                      "destination": "10.4.0.0/16",
+                      "destinationPort": "ANY",
+                      "direction": "ANY",
+                      "protocol": "IP",
+                      "source": "10.2.0.0/16",
+                      "sourcePort": "ANY"
+                    },
+                    "ruleOptions": [
+                      {
+                        "keyword": "sid",
+                        "settings": [
+                          "100"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "action": "DROP",
+                    "header": {
+                      "destination": "10.4.0.0/16",
+                      "destinationPort": "ANY",
+                      "direction": "ANY",
+                      "protocol": "IP",
+                      "source": "10.3.0.0/16",
+                      "sourcePort": "ANY"
+                    },
+                    "ruleOptions": [
+                      {
+                        "keyword": "sid",
+                        "settings": [
+                          "200"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "AWSAccelerator-domain-list-group",
+            "regions": [
+              "ca-central-1"
+            ],
+            "capacity": 10,
+            "type": "STATEFUL",
+            "ruleGroup": {
+              "rulesSource": {
+                "rulesSourceList": {
+                  "generatedRulesType": "DENYLIST",
+                  "targets": [
+                    ".google.com"
+                  ],
+                  "targetTypes": [
+                    "TLS_SNI",
+                    "HTTP_HOST"
+                  ]
+                }
+              },
+              "ruleVariables": {
+                "ipSets": {
+                  "name": "HOME_NET",
+                  "definition": [
+                    "10.1.0.0/16",
+                    "10.2.0.0/16",
+                    "10.3.0.0/16",
+                    "10.4.0.0/16",
+                    "10.7.4.0/22"
+                  ]
+                },
+                "portSets": {
+                  "name": "HOME_NET",
+                  "definition": [
+                    "80",
+                    "443"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "route53Resolver": {
+        "endpoints": [
+          {
+            "name": "EndpointOutbound",
+            "type": "OUTBOUND",
+            "vpc": "Endpoint",
+            "allowedCidrs": [
+              "10.0.0.0/8"
+            ],
+            "subnets": [
+              "Endpoint-A",
+              "Endpoint-B"
+            ],
+            "rules": [
+              {
+                "name": "AWSAccelerator-Endpoint-mad-example-local",
+                "domainName": "example.local",
+                "targetIps": [
+                  {
+                    "ip": "1.1.1.1"
+                  },
+                  {
+                    "ip": "2.2.2.2"
+                  }
+                ],
+                "shareTargets": {
+                  "accounts": [
+                    "Operations"
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "queryLogs": {
+          "name": "accelerator-query-logs",
+          "destinations": [
+            "s3",
+            "cloud-watch-logs"
+          ],
+          "shareTargets": {
+            "organizationalUnits": [
+              "Infrastructure"
+            ]
+          }
+        },
+        "firewallRuleGroups": [
+          {
+            "name": "accelerator-block-group",
+            "regions": [
+              "ca-central-1"
+            ],
+            "rules": [
+              {
+                "name": "managed-rule",
+                "action": "BLOCK",
+                "managedDomainList": "AWSManagedDomainsBotnetCommandandControl",
+                "priority": 300,
+                "blockResponse": "NODATA"
+              }
+            ],
+            "shareTargets": {
+              "organizationalUnits": [
+                "Infrastructure"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "prefixLists": [
+      {
+        "name": "onpremises-prefix-list",
+        "deploymentTargets": {
+          "organizationalUnits": [
+            "Central",
+            "Dev",
+            "Test",
+            "Prod",
+            "Infrastructure"
+          ]
+        },
+        "addressFamily": "IPv4",
+        "maxEntries": 1,
+        "entries": [
+          "10.1.0.1/32"
+        ]
+      }
+    ],
+    "certificates": [
+      {
+        "name": "PerimSelf-SignedCert",
+        "type": "import",
+        "privKey": "certs/example1-cert.key",
+        "cert": "certs/example1-cert.crt",
+        "deploymentTargets": {
+          "accounts": [
+            "Perimeter"
+          ]
+        }
+      },
+      {
+        "name": "DevSelf-SignedCert",
+        "type": "import",
+        "privKey": "certs/example1-cert.key",
+        "cert": "certs/example1-cert.crt",
+        "deploymentTargets": {
+          "organizationalUnits": [
+            "Dev"
+          ],
+          "accounts": [
+            "Network"
+          ]
+        }
+      }
+    ],
+    "endpointPolicies": [
+      {
+        "name": "Default",
+        "document": "vpc-endpoint-policies/default.json"
+      },
+      {
+        "name": "Ec2",
+        "document": "vpc-endpoint-policies/ec2.json"
+      }
+    ],
+    "vpcs": [
+      {
+        "name": "Endpoint",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "Endpoint"
+          }
+        ],
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidrs": [
+          "10.7.0.0/22"
+        ],
+        "defaultSecurityGroupRulesDeletion": true,
+        "internetGateway": false,
+        "enableDnsHostnames": true,
+        "enableDnsSupport": true,
+        "instanceTenancy": "default",
+        "queryLogs": [
+          "accelerator-query-logs"
+        ],
+        "routeTables": [
+          {
+            "name": "Endpoint",
+            "routes": [
+              {
+                "name": "TgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Endpoint-A",
+            "availabilityZone": "a",
+            "routeTable": "Endpoint",
+            "ipv4CidrBlock": "10.7.0.0/24"
+          },
+          {
+            "name": "Endpoint-B",
+            "availabilityZone": "b",
+            "routeTable": "Endpoint",
+            "ipv4CidrBlock": "10.7.1.0/24"
+          },
+          {
+            "name": "EndpointTgwAttach-A",
+            "availabilityZone": "a",
+            "routeTable": "Endpoint",
+            "ipv4CidrBlock": "10.7.3.208/28"
+          },
+          {
+            "name": "EndpointTgwAttach-B",
+            "availabilityZone": "b",
+            "routeTable": "Endpoint",
+            "ipv4CidrBlock": "10.7.3.224/28"
+          }
+        ],
+        "transitGatewayAttachments": [
+          {
+            "name": "Endpoint",
+            "transitGateway": {
+              "name": "Network-Main",
+              "account": "Network"
+            },
+            "routeTableAssociations": [
+              "Network-Main-Core"
+            ],
+            "routeTablePropagations": [
+              "Network-Main-Segregated",
+              "Network-Main-Core",
+              "Network-Main-Shared",
+              "Network-Main-Standalone"
+            ],
+            "subnets": [
+              "EndpointTgwAttach-A",
+              "EndpointTgwAttach-B"
+            ]
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        },
+        "interfaceEndpoints": {
+          "central": true,
+          "defaultPolicy": "Default",
+          "subnets": [
+            "Endpoint-A",
+            "Endpoint-B"
+          ],
+          "endpoints": [
+            {
+              "service": "ec2"
+            },
+            {
+              "service": "ec2messages"
+            },
+            {
+              "service": "ssm"
+            },
+            {
+              "service": "ssmmessages"
+            },
+            {
+              "service": "kms"
+            },
+            {
+              "service": "logs"
+            },
+            {
+              "service": "cloudformation"
+            },
+            {
+              "service": "secretsmanager"
+            },
+            {
+              "service": "monitoring"
+            }
+          ]
+        },
+        "resolverRules": [
+          "AWSAccelerator-Endpoint-mad-example-local"
+        ]
+      },
+      {
+        "name": "Perimeter",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "Perimeter"
+          }
+        ],
+        "account": "Perimeter",
+        "region": "ca-central-1",
+        "cidrs": [
+          "10.7.4.0/22"
+        ],
+        "defaultSecurityGroupRulesDeletion": true,
+        "internetGateway": true,
+        "routeTables": [
+          {
+            "name": "IGW-Ingress-Routes",
+            "gatewayAssociation": "internetGateway",
+            "routes": [
+              {
+                "name": "PerimeterNat-A",
+                "destination": "10.7.7.176/28",
+                "type": "networkFirewall",
+                "target": "AWSAccelerator-firewall",
+                "targetAvailabilityZone": "a"
+              },
+              {
+                "name": "PerimeterNat-B",
+                "destination": "10.7.7.192/28",
+                "type": "networkFirewall",
+                "target": "AWSAccelerator-firewall",
+                "targetAvailabilityZone": "b"
+              }
+            ]
+          },
+          {
+            "name": "Perimeter-A",
+            "routes": [
+              {
+                "name": "IgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "internetGateway",
+                "target": "IGW"
+              }
+            ]
+          },
+          {
+            "name": "Perimeter-B",
+            "routes": [
+              {
+                "name": "IgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "internetGateway",
+                "target": "IGW"
+              }
+            ]
+          },
+          {
+            "name": "Perimeter-Nat-A",
+            "routes": [
+              {
+                "name": "NfwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "networkFirewall",
+                "target": "AWSAccelerator-firewall",
+                "targetAvailabilityZone": "a"
+              },
+              {
+                "name": "TgwRoute",
+                "destination": "10.0.0.0/8",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              }
+            ]
+          },
+          {
+            "name": "Perimeter-Nat-B",
+            "routes": [
+              {
+                "name": "NfwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "networkFirewall",
+                "target": "AWSAccelerator-firewall",
+                "targetAvailabilityZone": "b"
+              },
+              {
+                "name": "TgwRoute",
+                "destination": "10.0.0.0/8",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              }
+            ]
+          },
+          {
+            "name": "Perimeter-Tgw-A",
+            "routes": [
+              {
+                "name": "NfwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "natGateway",
+                "target": "Nat-Perimeter-A"
+              },
+              {
+                "name": "TgwRoute",
+                "destination": "10.0.0.0/8",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              }
+            ]
+          },
+          {
+            "name": "Perimeter-Tgw-B",
+            "routes": [
+              {
+                "name": "NfwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "natGateway",
+                "target": "Nat-Perimeter-B"
+              },
+              {
+                "name": "TgwRoute",
+                "destination": "10.0.0.0/8",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Perimeter-A",
+            "availabilityZone": "a",
+            "routeTable": "Perimeter-A",
+            "ipv4CidrBlock": "10.7.4.0/24"
+          },
+          {
+            "name": "Perimeter-B",
+            "availabilityZone": "b",
+            "routeTable": "Perimeter-B",
+            "ipv4CidrBlock": "10.7.5.0/24"
+          },
+          {
+            "name": "PerimeterTgwAttach-A",
+            "availabilityZone": "a",
+            "routeTable": "Perimeter-Tgw-A",
+            "ipv4CidrBlock": "10.7.7.208/28"
+          },
+          {
+            "name": "PerimeterTgwAttach-B",
+            "availabilityZone": "b",
+            "routeTable": "Perimeter-Tgw-B",
+            "ipv4CidrBlock": "10.7.7.224/28"
+          },
+          {
+            "name": "PerimeterNat-A",
+            "availabilityZone": "a",
+            "routeTable": "Perimeter-Nat-A",
+            "ipv4CidrBlock": "10.7.7.176/28"
+          },
+          {
+            "name": "PerimeterNat-B",
+            "availabilityZone": "b",
+            "routeTable": "Perimeter-Nat-B",
+            "ipv4CidrBlock": "10.7.7.192/28"
+          }
+        ],
+        "natGateways": [
+          {
+            "name": "Nat-Perimeter-A",
+            "subnet": "PerimeterNat-A"
+          },
+          {
+            "name": "Nat-Perimeter-B",
+            "subnet": "PerimeterNat-B"
+          }
+        ],
+        "securityGroups": [
+          {
+            "name": "Public-Prod-ALB",
+            "description": "Perimeter ALB Security Group for prod",
+            "inboundRules": [
+              {
+                "description": "HTTPS Traffic Inbound",
+                "types": [
+                  "HTTPS"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Public-DevTest-ALB",
+            "description": "Perimeter ALB Security Group for dev-test",
+            "inboundRules": [
+              {
+                "description": "HTTPS Traffic Inbound",
+                "types": [
+                  "HTTPS"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          }
+        ],
+        "transitGatewayAttachments": [
+          {
+            "name": "Perimeter",
+            "transitGateway": {
+              "name": "Network-Main",
+              "account": "Network"
+            },
+            "options": {
+              "applianceModeSupport": "enable"
+            },
+            "routeTableAssociations": [
+              "Network-Main-Core"
+            ],
+            "routeTablePropagations": [],
+            "subnets": [
+              "PerimeterTgwAttach-A",
+              "PerimeterTgwAttach-B"
+            ]
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        },
+        "useCentralEndpoints": true,
+        "loadBalancers": {
+          "applicationLoadBalancers": [
+            {
+              "name": "Public-Prod",
+              "scheme": "internet-facing",
+              "subnets": [
+                "PerimeterNat-A",
+                "PerimeterNat-B"
+              ],
+              "securityGroups": [
+                "Public-Prod-ALB"
+              ],
+              "listeners": [
+                {
+                  "name": "alb-listener",
+                  "port": 443,
+                  "protocol": "HTTPS",
+                  "targetGroup": "Public-Prod-tg",
+                  "type": "forward",
+                  "certificate": "PerimSelf-SignedCert",
+                  "sslPolicy": "ELBSecurityPolicy-FS-1-2-Res-2019-08"
+                }
+              ]
+            },
+            {
+              "name": "Public-DevTest",
+              "scheme": "internet-facing",
+              "subnets": [
+                "PerimeterNat-A",
+                "PerimeterNat-B"
+              ],
+              "securityGroups": [
+                "Public-DevTest-ALB"
+              ],
+              "listeners": [
+                {
+                  "name": "alb-listener",
+                  "port": 443,
+                  "protocol": "HTTPS",
+                  "targetGroup": "Public-DevTest-tg",
+                  "type": "forward",
+                  "certificate": "PerimSelf-SignedCert",
+                  "sslPolicy": "ELBSecurityPolicy-FS-1-2-Res-2019-08"
+                }
+              ]
+            }
+          ]
+        },
+        "targetGroups": [
+          {
+            "name": "Public-Prod-tg",
+            "port": 443,
+            "protocol": "HTTPS",
+            "type": "instance"
+          },
+          {
+            "name": "Public-DevTest-tg",
+            "port": 443,
+            "protocol": "HTTPS",
+            "type": "instance"
+          }
+        ]
+      },
+      {
+        "name": "Dev",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "Dev"
+          }
+        ],
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidrs": [
+          "10.2.0.0/16"
+        ],
+        "defaultSecurityGroupRulesDeletion": true,
+        "routeTables": [
+          {
+            "name": "Dev",
+            "routes": [
+              {
+                "name": "TgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          }
+        ],
+        "networkAcls": [
+          {
+            "name": "PermitDataTierFromAppTier",
+            "subnetAssociations": [
+              "Dev-Data-A",
+              "Dev-Data-B"
+            ],
+            "inboundRules": [
+              {
+                "action": "allow",
+                "rule": 25,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Dev",
+                  "subnet": "Dev-App-A"
+                }
+              },
+              {
+                "action": "allow",
+                "rule": 50,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Dev",
+                  "subnet": "Dev-App-B"
+                }
+              }
+            ],
+            "outboundRules": [
+              {
+                "action": "allow",
+                "rule": 10,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "destination": "0.0.0.0/0"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Dev-Web-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-Web-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.16.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Dev"
+              ]
+            }
+          },
+          {
+            "name": "Dev-Web-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-Web-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.32.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Dev"
+              ]
+            }
+          },
+          {
+            "name": "Dev-App-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-App-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.64.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Dev"
+              ]
+            }
+          },
+          {
+            "name": "Dev-App-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-App-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.96.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Dev"
+              ]
+            }
+          },
+          {
+            "name": "Dev-Data-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-Data-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.160.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Dev"
+              ]
+            }
+          },
+          {
+            "name": "Dev-Data-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-Data-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.176.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Dev"
+              ]
+            }
+          },
+          {
+            "name": "Dev-MainTgwAttach-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-MainTgwAttach-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.0.0/27"
+          },
+          {
+            "name": "Dev-MainTgwAttach-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-MainTgwAttach-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.0.32/27"
+          },
+          {
+            "name": "Dev-Mgmt-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-Mgmt-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.8.0/21"
+          },
+          {
+            "name": "Dev-Mgmt-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Dev-Mgmt-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Dev",
+            "ipv4CidrBlock": "10.2.208.0/21"
+          }
+        ],
+        "securityGroups": [
+          {
+            "name": "Management",
+            "description": "Management Security Group",
+            "inboundRules": [
+              {
+                "description": "Management RDP/SSH Traffic Inbound",
+                "types": [
+                  "RDP",
+                  "SSH"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  },
+                  {
+                    "prefixLists": [
+                      "onpremises-prefix-list"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Web",
+            "description": "Web Security Group for Dev VPC",
+            "inboundRules": [
+              {
+                "description": "World Web Traffic Inbound",
+                "types": [
+                  "HTTPS",
+                  "HTTP"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "App",
+            "description": "App Security Group for Dev VPC",
+            "inboundRules": [
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Web Tier Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Web"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Data",
+            "description": "Data Security Group for Dev VPC",
+            "inboundRules": [
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local App DB Traffic Inbound",
+                "types": [
+                  "MSSQL",
+                  "MYSQL/AURORA",
+                  "REDSHIFT",
+                  "POSTGRESQL",
+                  "ORACLE-RDS"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Data"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          }
+        ],
+        "transitGatewayAttachments": [
+          {
+            "name": "Dev-Main",
+            "transitGateway": {
+              "name": "Network-Main",
+              "account": "Network"
+            },
+            "routeTableAssociations": [
+              "Network-Main-Segregated"
+            ],
+            "routeTablePropagations": [
+              "Network-Main-Core",
+              "Network-Main-Shared"
+            ],
+            "subnets": [
+              "Dev-MainTgwAttach-A",
+              "Dev-MainTgwAttach-B"
+            ]
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        },
+        "useCentralEndpoints": true,
+        "resolverRules": [
+          "AWSAccelerator-Endpoint-mad-example-local"
+        ]
+      },
+      {
+        "name": "Central",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "Central"
+          }
+        ],
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidrs": [
+          "10.1.0.0/16"
+        ],
+        "defaultSecurityGroupRulesDeletion": true,
+        "routeTables": [
+          {
+            "name": "Central",
+            "routes": [
+              {
+                "name": "TgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          }
+        ],
+        "securityGroups": [
+          {
+            "name": "Management",
+            "description": "Management Security Group",
+            "inboundRules": [
+              {
+                "description": "Management RDP/SSH Traffic Inbound",
+                "types": [
+                  "RDP",
+                  "SSH"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  },
+                  {
+                    "prefixLists": [
+                      "onpremises-prefix-list"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Web",
+            "description": "Web Security Group for Central VPC",
+            "inboundRules": [
+              {
+                "description": "World Web Traffic Inbound",
+                "types": [
+                  "HTTPS",
+                  "HTTP"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "App",
+            "description": "App Security Group for Central VPC",
+            "inboundRules": [
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Web Tier Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Web"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Data",
+            "description": "Data Security Group for Central VPC",
+            "inboundRules": [
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local App DB Traffic Inbound",
+                "types": [
+                  "MSSQL",
+                  "MYSQL/AURORA",
+                  "REDSHIFT",
+                  "POSTGRESQL",
+                  "ORACLE-RDS"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Data"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          }
+        ],
+        "networkAcls": [
+          {
+            "name": "PermitDataTierFromAppTier",
+            "subnetAssociations": [
+              "Central-Data-A",
+              "Central-Data-B"
+            ],
+            "inboundRules": [
+              {
+                "action": "allow",
+                "rule": 25,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Central",
+                  "subnet": "Central-App-A"
+                }
+              },
+              {
+                "action": "allow",
+                "rule": 50,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Central",
+                  "subnet": "Central-App-B"
+                }
+              }
+            ],
+            "outboundRules": [
+              {
+                "action": "allow",
+                "rule": 10,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "destination": "0.0.0.0/0"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Central-Web-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-Web-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.16.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Central"
+              ],
+              "accounts": [
+                "Operations"
+              ]
+            }
+          },
+          {
+            "name": "Central-Web-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-Web-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.32.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Central"
+              ],
+              "accounts": [
+                "Operations"
+              ]
+            }
+          },
+          {
+            "name": "Central-App-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-App-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.64.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Central"
+              ],
+              "accounts": [
+                "Operations"
+              ]
+            }
+          },
+          {
+            "name": "Central-App-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-App-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.96.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Central"
+              ],
+              "accounts": [
+                "Operations"
+              ]
+            }
+          },
+          {
+            "name": "Central-Data-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-Data-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.160.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Central"
+              ],
+              "accounts": [
+                "Operations"
+              ]
+            }
+          },
+          {
+            "name": "Central-Data-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-Data-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.176.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Central"
+              ],
+              "accounts": [
+                "Operations"
+              ]
+            }
+          },
+          {
+            "name": "Central-MainTgwAttach-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-MainTgwAttach-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.0.0/27"
+          },
+          {
+            "name": "Central-MainTgwAttach-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-MainTgwAttach-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.0.32/27"
+          },
+          {
+            "name": "Central-Mgmt-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-Mgmt-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.8.0/21"
+          },
+          {
+            "name": "Central-Mgmt-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Central-Mgmt-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Central",
+            "ipv4CidrBlock": "10.1.208.0/21"
+          }
+        ],
+        "transitGatewayAttachments": [
+          {
+            "name": "Central-Main",
+            "transitGateway": {
+              "name": "Network-Main",
+              "account": "Network"
+            },
+            "routeTableAssociations": [
+              "Network-Main-Shared"
+            ],
+            "routeTablePropagations": [
+              "Network-Main-Core",
+              "Network-Main-Segregated",
+              "Network-Main-Shared"
+            ],
+            "subnets": [
+              "Central-MainTgwAttach-A",
+              "Central-MainTgwAttach-B"
+            ]
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        },
+        "useCentralEndpoints": true,
+        "resolverRules": [
+          "AWSAccelerator-Endpoint-mad-example-local"
+        ]
+      },
+      {
+        "name": "Test",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "Test"
+          }
+        ],
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidrs": [
+          "10.3.0.0/16"
+        ],
+        "defaultSecurityGroupRulesDeletion": true,
+        "routeTables": [
+          {
+            "name": "Test",
+            "routes": [
+              {
+                "name": "TgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          }
+        ],
+        "networkAcls": [
+          {
+            "name": "PermitDataTierFromAppTier",
+            "subnetAssociations": [
+              "Test-Data-A",
+              "Test-Data-B"
+            ],
+            "inboundRules": [
+              {
+                "action": "allow",
+                "rule": 25,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Test",
+                  "subnet": "Test-App-A"
+                }
+              },
+              {
+                "action": "allow",
+                "rule": 50,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Test",
+                  "subnet": "Test-App-B"
+                }
+              }
+            ],
+            "outboundRules": [
+              {
+                "action": "allow",
+                "rule": 10,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "destination": "0.0.0.0/0"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Test-Web-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-Web-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.16.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Test"
+              ]
+            }
+          },
+          {
+            "name": "Test-Web-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-Web-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.32.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Test"
+              ]
+            }
+          },
+          {
+            "name": "Test-App-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-App-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.64.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Test"
+              ]
+            }
+          },
+          {
+            "name": "Test-App-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-App-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.96.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Test"
+              ]
+            }
+          },
+          {
+            "name": "Test-Data-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-Data-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.160.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Test"
+              ]
+            }
+          },
+          {
+            "name": "Test-Data-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-Data-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.176.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Test"
+              ]
+            }
+          },
+          {
+            "name": "Test-MainTgwAttach-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-MainTgwAttach-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.0.0/27"
+          },
+          {
+            "name": "Test-MainTgwAttach-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-MainTgwAttach-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.0.32/27"
+          },
+          {
+            "name": "Test-Mgmt-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-Mgmt-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.8.0/21"
+          },
+          {
+            "name": "Test-Mgmt-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Test-Mgmt-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Test",
+            "ipv4CidrBlock": "10.3.208.0/21"
+          }
+        ],
+        "securityGroups": [
+          {
+            "name": "Management",
+            "description": "Management Security Group",
+            "inboundRules": [
+              {
+                "description": "Management RDP/SSH Traffic Inbound",
+                "types": [
+                  "RDP",
+                  "SSH"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  },
+                  {
+                    "prefixLists": [
+                      "onpremises-prefix-list"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Web",
+            "description": "Web Security Group for Test VPC",
+            "inboundRules": [
+              {
+                "description": "World Web Traffic Inbound",
+                "types": [
+                  "HTTPS",
+                  "HTTP"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "App",
+            "description": "App Security Group for Test VPC",
+            "inboundRules": [
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Web Tier Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Web"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Data",
+            "description": "Data Security Group for Test VPC",
+            "inboundRules": [
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local App DB Traffic Inbound",
+                "types": [
+                  "MSSQL",
+                  "MYSQL/AURORA",
+                  "REDSHIFT",
+                  "POSTGRESQL",
+                  "ORACLE-RDS"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Data"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          }
+        ],
+        "transitGatewayAttachments": [
+          {
+            "name": "Test-Main",
+            "transitGateway": {
+              "name": "Network-Main",
+              "account": "Network"
+            },
+            "routeTableAssociations": [
+              "Network-Main-Segregated"
+            ],
+            "routeTablePropagations": [
+              "Network-Main-Core",
+              "Network-Main-Shared"
+            ],
+            "subnets": [
+              "Test-MainTgwAttach-A",
+              "Test-MainTgwAttach-B"
+            ]
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        },
+        "useCentralEndpoints": true,
+        "resolverRules": [
+          "AWSAccelerator-Endpoint-mad-example-local"
+        ]
+      },
+      {
+        "name": "Prod",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "Prod"
+          }
+        ],
+        "account": "Network",
+        "region": "ca-central-1",
+        "cidrs": [
+          "10.4.0.0/16"
+        ],
+        "defaultSecurityGroupRulesDeletion": true,
+        "routeTables": [
+          {
+            "name": "Prod",
+            "routes": [
+              {
+                "name": "TgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "transitGateway",
+                "target": "Network-Main"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          }
+        ],
+        "networkAcls": [
+          {
+            "name": "PermitDataTierFromAppTier",
+            "subnetAssociations": [
+              "Prod-Data-A",
+              "Prod-Data-B"
+            ],
+            "inboundRules": [
+              {
+                "action": "allow",
+                "rule": 25,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Prod",
+                  "subnet": "Prod-App-A"
+                }
+              },
+              {
+                "action": "allow",
+                "rule": 50,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "source": {
+                  "account": "Network",
+                  "vpc": "Prod",
+                  "subnet": "Prod-App-B"
+                }
+              }
+            ],
+            "outboundRules": [
+              {
+                "action": "allow",
+                "rule": 10,
+                "fromPort": -1,
+                "toPort": -1,
+                "protocol": -1,
+                "destination": "0.0.0.0/0"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Prod-Web-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-Web-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.16.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Prod"
+              ]
+            }
+          },
+          {
+            "name": "Prod-Web-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-Web-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.32.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Prod"
+              ]
+            }
+          },
+          {
+            "name": "Prod-App-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-App-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.64.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Prod"
+              ]
+            }
+          },
+          {
+            "name": "Prod-App-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-App-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.96.0/19",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Prod"
+              ]
+            }
+          },
+          {
+            "name": "Prod-Data-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-Data-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.160.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Prod"
+              ]
+            }
+          },
+          {
+            "name": "Prod-Data-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-Data-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.176.0/20",
+            "shareTargets": {
+              "organizationalUnits": [
+                "Prod"
+              ]
+            }
+          },
+          {
+            "name": "Prod-MainTgwAttach-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-MainTgwAttach-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.0.0/27"
+          },
+          {
+            "name": "Prod-MainTgwAttach-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-MainTgwAttach-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.0.32/27"
+          },
+          {
+            "name": "Prod-Mgmt-A",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-Mgmt-A"
+              }
+            ],
+            "availabilityZone": "a",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.8.0/21"
+          },
+          {
+            "name": "Prod-Mgmt-B",
+            "tags": [
+              {
+                "key": "Name",
+                "value": "Prod-Mgmt-B"
+              }
+            ],
+            "availabilityZone": "b",
+            "routeTable": "Prod",
+            "ipv4CidrBlock": "10.4.208.0/21"
+          }
+        ],
+        "securityGroups": [
+          {
+            "name": "Management",
+            "description": "Management Security Group",
+            "inboundRules": [
+              {
+                "description": "Management RDP/SSH Traffic Inbound",
+                "types": [
+                  "RDP",
+                  "SSH"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  },
+                  {
+                    "prefixLists": [
+                      "onpremises-prefix-list"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Web",
+            "description": "Web Security Group for Prod VPC",
+            "inboundRules": [
+              {
+                "description": "World Web Traffic Inbound",
+                "types": [
+                  "HTTPS",
+                  "HTTP"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              },
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "App",
+            "description": "App Security Group for Prod VPC",
+            "inboundRules": [
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Web Tier Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Web"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Data",
+            "description": "Data Security Group for Prod VPC",
+            "inboundRules": [
+              {
+                "description": "Central VPC Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "account": "Network",
+                    "vpc": "Central",
+                    "subnets": [
+                      "Central-Web-A",
+                      "Central-Web-B",
+                      "Central-App-A",
+                      "Central-App-B",
+                      "Central-Mgmt-A",
+                      "Central-Mgmt-B"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local Mgmt Traffic Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Management"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Local App DB Traffic Inbound",
+                "types": [
+                  "MSSQL",
+                  "MYSQL/AURORA",
+                  "REDSHIFT",
+                  "POSTGRESQL",
+                  "ORACLE-RDS"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "App"
+                    ]
+                  }
+                ]
+              },
+              {
+                "description": "Allow East/West Communication Inbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  {
+                    "securityGroups": [
+                      "Data"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "outboundRules": [
+              {
+                "description": "All Outbound",
+                "types": [
+                  "ALL"
+                ],
+                "sources": [
+                  "0.0.0.0/0"
+                ]
+              }
+            ]
+          }
+        ],
+        "transitGatewayAttachments": [
+          {
+            "name": "Prod-Main",
+            "transitGateway": {
+              "name": "Network-Main",
+              "account": "Network"
+            },
+            "routeTableAssociations": [
+              "Network-Main-Segregated"
+            ],
+            "routeTablePropagations": [
+              "Network-Main-Core",
+              "Network-Main-Shared"
+            ],
+            "subnets": [
+              "Prod-MainTgwAttach-A",
+              "Prod-MainTgwAttach-B"
+            ]
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        },
+        "useCentralEndpoints": true,
+        "resolverRules": [
+          "AWSAccelerator-Endpoint-mad-example-local"
+        ]
+      }
+    ],
+    "vpcTemplates": [
+      {
+        "name": "Sandbox-Template",
+        "region": "ca-central-1",
+        "deploymentTargets": {
+          "organizationalUnits": [
+            "Sandbox"
+          ]
+        },
+        "ipamAllocations": [
+          {
+            "ipamPoolName": "home-region-sandbox-pool",
+            "netmaskLength": 20
+          }
+        ],
+        "internetGateway": true,
+        "enableDnsHostnames": true,
+        "enableDnsSupport": true,
+        "instanceTenancy": "default",
+        "routeTables": [
+          {
+            "name": "Network-Sandbox-A",
+            "routes": [
+              {
+                "name": "NatRoute",
+                "destination": "0.0.0.0/0",
+                "type": "natGateway",
+                "target": "Nat-Network-Sandbox-A"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          },
+          {
+            "name": "Network-Sandbox-B",
+            "routes": [
+              {
+                "name": "NatRoute",
+                "destination": "0.0.0.0/0",
+                "type": "natGateway",
+                "target": "Nat-Network-Sandbox-B"
+              },
+              {
+                "name": "S3Gateway",
+                "type": "gatewayEndpoint",
+                "target": "s3"
+              },
+              {
+                "name": "DynamoDBGateway",
+                "type": "gatewayEndpoint",
+                "target": "dynamodb"
+              }
+            ]
+          },
+          {
+            "name": "Network-Sandbox-Nat-A",
+            "routes": [
+              {
+                "name": "IgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "internetGateway",
+                "target": "IGW"
+              }
+            ]
+          },
+          {
+            "name": "Network-Sandbox-Nat-B",
+            "routes": [
+              {
+                "name": "IgwRoute",
+                "destination": "0.0.0.0/0",
+                "type": "internetGateway",
+                "target": "IGW"
+              }
+            ]
+          }
+        ],
+        "subnets": [
+          {
+            "name": "Network-Sandbox-A",
+            "availabilityZone": "a",
+            "routeTable": "Network-Sandbox-A",
+            "ipamAllocation": {
+              "ipamPoolName": "home-region-sandbox-pool",
+              "netmaskLength": 24
+            }
+          },
+          {
+            "name": "Network-Sandbox-B",
+            "availabilityZone": "b",
+            "routeTable": "Network-Sandbox-B",
+            "ipamAllocation": {
+              "ipamPoolName": "home-region-sandbox-pool",
+              "netmaskLength": 24
+            }
+          },
+          {
+            "name": "Network-SandboxNat-A",
+            "availabilityZone": "a",
+            "routeTable": "Network-Sandbox-Nat-A",
+            "ipamAllocation": {
+              "ipamPoolName": "home-region-sandbox-pool",
+              "netmaskLength": 28
+            }
+          },
+          {
+            "name": "Network-SandboxNat-B",
+            "availabilityZone": "b",
+            "routeTable": "Network-Sandbox-Nat-B",
+            "ipamAllocation": {
+              "ipamPoolName": "home-region-sandbox-pool",
+              "netmaskLength": 28
+            }
+          }
+        ],
+        "natGateways": [
+          {
+            "name": "Nat-Network-Sandbox-A",
+            "subnet": "Network-SandboxNat-A"
+          },
+          {
+            "name": "Nat-Network-Sandbox-B",
+            "subnet": "Network-SandboxNat-B"
+          }
+        ],
+        "gatewayEndpoints": {
+          "defaultPolicy": "Default",
+          "endpoints": [
+            {
+              "service": "s3"
+            },
+            {
+              "service": "dynamodb"
+            }
+          ]
+        }
+      }
+    ],
+    "vpcFlowLogs": {
+      "trafficType": "ALL",
+      "maxAggregationInterval": 600,
+      "destinations": [
+        "cloud-watch-logs",
+        "s3"
+      ],
+      "destinationsConfig": {
+        "cloudWatchLogs": {
+          "retentionInDays": 30
+        }
+      },
+      "defaultFormat": false,
+      "customFields": [
+        "version",
+        "account-id",
+        "interface-id",
+        "srcaddr",
+        "dstaddr",
+        "srcport",
+        "dstport",
+        "protocol",
+        "packets",
+        "bytes",
+        "start",
+        "end",
+        "action",
+        "log-status",
+        "vpc-id",
+        "subnet-id",
+        "instance-id",
+        "tcp-flags",
+        "type",
+        "pkt-srcaddr",
+        "pkt-dstaddr",
+        "region",
+        "az-id",
+        "pkt-src-aws-service",
+        "pkt-dst-aws-service",
+        "flow-direction",
+        "traffic-path"
+      ]
+    }
+  }
+}
