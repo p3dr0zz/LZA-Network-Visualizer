@@ -13,12 +13,24 @@ A comprehensive network visualization and analysis tool for AWS Landing Zone Acc
 - **CCCS Medium Support**: Built specifically for CCCS Medium security patterns
 - **Palo Alto CNFGW Detection**: Automatic detection and visualization of firewall endpoints
 
+## ⚠️ Important Notes
+
+**Compatibility & Testing:**
+- This tool has been **tested primarily with CCCS Medium sample configurations**
+- It *should* work with other LZA flavors, but **has not been extensively tested** with other patterns
+- Currently supports **non-IPAM networking configurations only**
+- IPAM (IP Address Manager) support is planned but not yet implemented
+
+**If you encounter issues** with non-CCCS configurations or IPAM setups, please open an issue on GitHub.
+
 ## 📋 Prerequisites
 
 - **Python 3.7+** (required to run the configuration parser)
 - Modern web browser (for the visualizer interface)
 
 ## 🚀 Quick Start
+
+**Note:** All commands should be run from the project folder in a terminal window (e.g., VS Code terminal).
 
 ### 0. Setup Python Environment (Optional but Recommended)
 
