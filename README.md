@@ -2,6 +2,8 @@
 
 A comprehensive network visualization and analysis tool for AWS Landing Zone Accelerator (LZA) configurations. This tool helps you understand, document, and validate your LZA network architecture through interactive visualizations and detailed analysis.
 
+![LZA Network Visualizer Screenshot](Screenshots/sample.jpg)
+
 ## 🌟 Features
 
 - **Interactive Network Diagram**: Visual representation of your LZA network topology
